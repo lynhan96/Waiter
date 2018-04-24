@@ -12,7 +12,7 @@ export const submitLogin =
     const { email, password } = values
     let admin = null
 
-    const url = 'login'
+    const url = 'loginWaiter'
     const params = { email: email, password: password }
 
     return request(makeRequestOptions(params, url)).then(body => {
@@ -49,7 +49,6 @@ export const submitForgotPassword =
     const params = { email: email }
 
     return request(makeRequestOptions(params, url)).then(body => {
-      console.log(body)
       if (body.code === 0) {
         showNotification('topCenter', 'success', 'Vui lòng kiểm tra email để nhận mật khẩu mới!')
         Navigator.push('login')

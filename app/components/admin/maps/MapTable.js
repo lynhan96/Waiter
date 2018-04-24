@@ -14,25 +14,10 @@ import { fetchTables } from 'lib/actions/table'
 import { fetchZones } from 'lib/actions/zone'
 
 class MapTable extends Component {
-  constructor (props) {
-    super(props)
-
-    this.addZoneOpen = this.addZoneOpen.bind(this)
-    this.addTableOpen = this.addTableOpen.bind(this)
-  }
-
   componentDidMount() {
     this.props.dispatch(fetchTables())
     this.props.dispatch(fetchZones())
     this.props.dispatch(updateActiveLink('map-tables'))
-  }
-
-  addZoneOpen() {
-    Navigator.push('create-zone')
-  }
-
-  addTableOpen() {
-    Navigator.push('create-table')
   }
 
   render() {
@@ -50,22 +35,6 @@ class MapTable extends Component {
     return (
       <div className='content'>
         <div className='container-fluid animated fadeIn'>
-          <div className='row'>
-            <div className='card' style={{ padding: '10px' }}>
-              <div style={{ padding: '20px' }}>
-                <RaisedButton
-                  label='Thêm khu vực'
-                  primary={true}
-                  style={{ margin: '10px' }}
-                  onClick={this.addZoneOpen}
-                />
-                <RaisedButton
-                  label='Tạo bàn ăn'
-                  secondary={true}
-                  onClick={this.addTableOpen}/>
-              </div>
-            </div>
-          </div>
           <div className='row'>
             <Tabs>
               {R.values(zones).map((value, index) => {

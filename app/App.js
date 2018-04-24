@@ -1,6 +1,5 @@
 import React from 'react'
 
-import Header from 'components/layout/Header'
 import SideBar from 'components/layout/SideBar'
 import { ToastContainer } from 'react-toastify'
 import Transition from 'react-transition-group/Transition'
@@ -31,7 +30,6 @@ const App = (props) => {
       <div className='wrapper'>
         <SideBar/>
         <div className='main-panel'>
-          <Header/>
           {children}
           <ToastContainer transition={ZoomInAndOut}/>
         </div>

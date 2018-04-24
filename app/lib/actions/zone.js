@@ -21,51 +21,6 @@ export const fetchZoneSuccess = items => ({
   items: items
 })
 
-const createZone = params => {
-  firebase.database().ref(getAdminData().vid + '/zones/').push({
-    name: params.name,
-    imageUrl: params.imageUrl
-  })
-
-  showNotification('topRight', 'success', 'Thêm khu vực thành công!')
-
-  Navigator.push('map-tables')
-}
-
-export const submitAddZone =
-  (values, dispatch, props) => {
-    let params = values
-
-    if (params.imageUrl) {
-      dispatch(fetchZonesBegin())
-      const keys = Object.keys(params.imageUrl)
-
-      async.each(keys, function(key, callback) {
-        const storageRef = firebase.storage().ref(key + '.png')
-        const base64result = R.split(',', params.imageUrl[key])
-
-        if (base64result.length === 1) {
-          callback()
-          return
-        }
-
-        storageRef.putString(base64result[1], 'base64').then(function(snapshot) {
-          params.imageUrl[key] = snapshot.downloadURL
-          callback()
-        })
-      }, function(err) {
-        if (err) {
-          showNotification('topRight', 'error', 'Quá trình Upload hình xảy ra lỗi!')
-        } else {
-          createZone(params)
-        }
-      })
-    } else {
-      dispatch(fetchZonesBegin())
-      createZone(params)
-    }
-  }
-
 export const fetchZones = () => (dispatch) => {
   const ref = database.ref(getAdminData().vid + '/zones')
   ref.once('value')

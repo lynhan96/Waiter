@@ -1,9 +1,7 @@
-import R from 'ramda'
 import {
   FETCH_ZONE_SUCCESS,
   FETCH_ZONE_BEGIN,
-  ZONE_CHANGED,
-  ZONE_DELETED
+  ZONE_CHANGED
 } from '../lib/actions/zone'
 import { ADMIN_SIGNED_OUT } from 'ducks/admin'
 
@@ -39,15 +37,6 @@ const reducer = (state = initialState, action) => {
           ...state.items,
           [id]: action.item
         }
-      }
-    }
-
-    case ZONE_DELETED: {
-      const { id } = action.item
-
-      return {
-        ...state,
-        items: R.dissoc(id, state.items)
       }
     }
 

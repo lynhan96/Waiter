@@ -1,10 +1,8 @@
-import R from 'ramda'
 import {
   FETCH_TABLE_SUCCESS,
   FETCH_TABLE_BEGIN,
   FETCH_TABLE_END,
-  TABLE_CHANGED,
-  TABLE_DELETED
+  TABLE_CHANGED
 } from '../lib/actions/table'
 import { ADMIN_SIGNED_OUT } from 'ducks/admin'
 
@@ -47,15 +45,6 @@ const reducer = (state = initialState, action) => {
           ...state.items,
           [id]: action.item
         }
-      }
-    }
-
-    case TABLE_DELETED: {
-      const { id } = action.item
-
-      return {
-        ...state,
-        items: R.dissoc(id, state.items)
       }
     }
 
