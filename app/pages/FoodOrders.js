@@ -50,9 +50,12 @@ class FoodOrders extends ReactQueryParams {
       quantity = selectedFood[foodId].quantity - 1
     }
 
-    newItem[foodId] = { quantity: quantity, id: foodId }
-
-    newItem = R.merge(selectedFood)(newItem)
+    if (quantity === 0) {
+      newItem = R.dissoc(foodId, selectedFood)
+    } else {
+      newItem[foodId] = { quantity: quantity, id: foodId }
+      newItem = R.merge(selectedFood)(newItem)
+    }
 
     this.props.dispatch(updateSelectedFood(newItem))
   }

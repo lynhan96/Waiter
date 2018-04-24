@@ -9,6 +9,7 @@ import { updateActiveLink } from 'ducks/admin'
 import { fetchFoodCategories } from 'lib/actions/foodCategory'
 import { fetchFoods } from 'lib/actions/food'
 import { updateSelectedFood } from 'ducks/selectedFood'
+import { priceToString } from 'lib/objects'
 
 class Foods extends ReactQueryParams {
   constructor (props) {
@@ -53,9 +54,12 @@ class Foods extends ReactQueryParams {
       quantity = selectedFood[foodId].quantity - 1
     }
 
-    newItem[foodId] = { quantity: quantity, id: foodId }
-
-    newItem = R.merge(selectedFood)(newItem)
+    if (quantity === 0) {
+      newItem = R.dissoc(foodId, selectedFood)
+    } else {
+      newItem[foodId] = { quantity: quantity, id: foodId }
+      newItem = R.merge(selectedFood)(newItem)
+    }
 
     this.props.dispatch(updateSelectedFood(newItem))
   }
@@ -86,7 +90,7 @@ class Foods extends ReactQueryParams {
                           </div>
                           <h4 className='item-title' style={style.name}>{item.name}</h4>
                           <div className='item-entry'>
-                            <p style={style.description}> {item.description}</p>
+                            <p style={style.description}> {priceToString(item.currentPrice)}</p>
                           </div>
                           <div className='text-center number-order'>
                             <Link className='fa fa-2x fa-minus-circle' style={style.selectButton} onClick={e => { e.preventDefault(); this.decreaseFood(item.id, dispatch) }}/>
@@ -120,7 +124,8 @@ export default R.pipe(
 
 const style = {
   name: {
-    textAlign: 'center'
+    textAlign: 'center',
+    fontWeight: 'bold'
   },
   quantity: {
     userSelect: 'none'
@@ -130,9 +135,8 @@ const style = {
     fontSize: '25px'
   },
   description: {
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap'
+    textAlign: 'center',
+    fontSize: '20px'
   },
   selectButton: {
     cursor: 'pointer'
