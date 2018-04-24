@@ -14,6 +14,7 @@ import Profile from 'pages/Profile'
 import MapTable from 'components/admin/maps/MapTable'
 
 import Foods from 'pages/Foods'
+import FoodOrders from 'pages/FoodOrders'
 
 ReactDOM.render((
   <Provider store={Store}>
@@ -25,6 +26,7 @@ ReactDOM.render((
         <Route path='dashboard' component={Dashboard} />
         <Route path='profile' component={Profile} />
         <Route path='foods' component={Foods} />
+        <Route path='food-orders' component={FoodOrders} />
 
         <Route path='map-tables' component={MapTable} />
       </Route>
