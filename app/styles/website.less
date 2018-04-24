@@ -109,25 +109,30 @@ body {
 .button-view-order {
     width: 100px;
     height: 100px;
-    border-radius: 50%;
-    background-color: #005238;
+    background: linear-gradient(60deg, #66bb6a, #43a047);
+    box-shadow: 0 12px 20px -10px rgba(76, 175, 80, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(76, 175, 80, 0.2);
+    border-radius: 5px;
     position: fixed;
-    top: 35%;
-    right: 10px;
+    bottom: 10px;
+    right: 220px;
     cursor: pointer;
-    font-size: 20px;
-    padding-top: 35px;
+    font-size: 30px;
+    text-align: center;
+    padding: 15px 10px;
     font-weight: bold;
-    opacity: 0.9;
     -webkit-transition: box-shadow 0.2s ease;
     -moz-transition: box-shadow 0.2s ease;
     transition: box-shadow 0.2s ease;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
-    border-radius: 50%;
-    color: #fff;
-    display: inline-block;
-    text-align: center;
+    color: #fff!important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    i {
+        vertical-align: bottom;
+    }
 }
 
 .button-order {
@@ -154,9 +159,8 @@ body {
     text-align: center;
 }
 
-.button-view-order:hover,
 .button-order:hover {
-    box-shadow: 0 0 0 7px #97824b;
+    box-shadow: 0 0 0 2px #97824b;
 }
 
 .button-view-order:hover:before,
@@ -170,7 +174,6 @@ body {
     opacity: .5;
 }
 
-.button-view-order:before,
 .button-order:before {
     -webkit-transition: all 0.2s ease;
     -moz-transition: all 0.2s ease;
@@ -211,24 +214,22 @@ body {
 }
 
 .sidebar {
-  .sub-menu {
-    padding-left: 0;
-    li {
-        list-style-type: none;
-        display: flex;
-        width: 100%;
-        a {
-            padding: 5px 20px;
+    .sub-menu {
+        padding-left: 0;
+        li {
+            list-style-type: none;
+            display: flex;
             width: 100%;
-            span {
-                line-height: 33px;
+            a {
+                padding: 5px 20px;
+                width: 100%;
+                span {
+                    line-height: 33px;
+                }
             }
         }
     }
 }
-}
-
-
 
 @media screen and (max-width: 991px) {
     .sidebar::before,

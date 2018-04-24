@@ -10,9 +10,8 @@ class ButtonViewOrder extends Component {
     const { selectedFood } = this.props
 
     return (
-      <Link className='button-view-order' to='food-orders'>
-        Giỏ hàng
-        <div style={{color: 'red'}}>{R.values(selectedFood).length}</div>
+      <Link className='button-view-order hvr-grow' to='food-orders'>
+        <span><i className="material-icons">shopping_cart</i> {R.values(selectedFood).length}</span>
       </Link>
     )
   }
