@@ -47,7 +47,10 @@ class SideBar extends Component {
                 <ul className='sub-menu'>
                   {items.map((item, index) =>
                     <li key={index}>
-                      <Link to='#' onClick={e => { e.preventDefault(); this.changePage(index) }}>{item.name}</Link>
+                      <Link to='#' onClick={e => { e.preventDefault(); this.changePage(index) }}>
+                      <i className="material-icons">local_dining</i>
+                      <span>{item.name}</span>
+                      </Link>
                     </li>
                   )}
                 </ul>
