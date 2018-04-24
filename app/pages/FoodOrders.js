@@ -6,9 +6,8 @@ import ReactQueryParams from 'react-query-params'
 import { isAdmin } from 'components/wrappers/isAdmin'
 
 import { updateActiveLink } from 'ducks/admin'
-import { fetchFoodCategories } from 'lib/actions/foodCategory'
-import { fetchFoods } from 'lib/actions/food'
 import { updateSelectedFood } from 'ducks/selectedFood'
+import { makeTotalPrice, priceToString } from 'lib/objects'
 
 class FoodOrders extends ReactQueryParams {
   constructor (props) {
@@ -33,7 +32,7 @@ class FoodOrders extends ReactQueryParams {
       quantity = selectedFood[foodId].quantity + 1
     }
 
-    newItem[foodId] = { quantity: quantity }
+    newItem[foodId] = { quantity: quantity, id: foodId }
 
     newItem = R.merge(selectedFood)(newItem)
 
@@ -51,7 +50,7 @@ class FoodOrders extends ReactQueryParams {
       quantity = selectedFood[foodId].quantity - 1
     }
 
-    newItem[foodId] = { quantity: quantity }
+    newItem[foodId] = { quantity: quantity, id: foodId }
 
     newItem = R.merge(selectedFood)(newItem)
 
@@ -61,6 +60,7 @@ class FoodOrders extends ReactQueryParams {
   render() {
     const { foods, selectedFood, dispatch } = this.props
     const foodIds = Object.keys(selectedFood)
+    const totalPrice = makeTotalPrice(selectedFood, foods)
 
     return (
       <div className='content'>
@@ -69,11 +69,12 @@ class FoodOrders extends ReactQueryParams {
             <div className='card'>
               <div className='card-header' data-background-color='purple'>
                 <h3 className='title' style={style.header}>Giỏ Hàng</h3>
-                <h4 className='title' style={style.header}>(Giỏ Hàng)</h4>
+                <h4 className='title' style={style.header}>{'(' + priceToString(totalPrice) + ')'}</h4>
               </div>
               <div className='card-content'style={{ width: '100%', float: 'left', padding: '40px 20px' }}>
                 {foodIds.map((id, index) => {
                   const item = R.find(R.propEq('id', parseInt(id)))(foods)
+                  if (!item) return (<div/>)
                   const image = R.values(item.imageUrl)
 
                   return (
@@ -84,7 +85,7 @@ class FoodOrders extends ReactQueryParams {
                         </div>
                         <h4 className='item-title' style={style.name}>{item.name}</h4>
                         <div className='item-entry'>
-                          <p style={style.description}> {item.currentPrice}</p>
+                          <p style={style.description}> {priceToString(item.currentPrice)}</p>
                         </div>
                         <div className='text-center number-order'>
                           <Link className='fa fa-2x fa-minus-circle' style={style.selectButton} onClick={e => { e.preventDefault(); this.decreaseFood(item.id, dispatch) }}/>

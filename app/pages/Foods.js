@@ -35,7 +35,7 @@ class Foods extends ReactQueryParams {
       quantity = selectedFood[foodId].quantity + 1
     }
 
-    newItem[foodId] = { quantity: quantity }
+    newItem[foodId] = { quantity: quantity, id: foodId }
 
     newItem = R.merge(selectedFood)(newItem)
 
@@ -53,7 +53,7 @@ class Foods extends ReactQueryParams {
       quantity = selectedFood[foodId].quantity - 1
     }
 
-    newItem[foodId] = { quantity: quantity }
+    newItem[foodId] = { quantity: quantity, id: foodId }
 
     newItem = R.merge(selectedFood)(newItem)
 
