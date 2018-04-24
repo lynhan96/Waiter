@@ -9,7 +9,6 @@ import App from 'App'
 import Login from 'pages/Login'
 import ForgotPassword from 'pages/ForgotPassword'
 import Dashboard from 'pages/Dashboard'
-import Profile from 'pages/Profile'
 
 import MapTable from 'components/admin/maps/MapTable'
 
@@ -24,7 +23,6 @@ ReactDOM.render((
         <Route path='login' component={Login}/>
         <Route path='forgot-password' component={ForgotPassword}/>
         <Route path='dashboard' component={Dashboard} />
-        <Route path='profile' component={Profile} />
         <Route path='foods' component={Foods} />
         <Route path='food-orders' component={FoodOrders} />
 

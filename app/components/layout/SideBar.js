@@ -22,7 +22,6 @@ class SideBar extends Component {
     const { admin, foodCategory, dispatch } = this.props
     const { activeLink, signedIn } = admin
     const { items } = foodCategory
-    const logout = dispatchLogout(dispatch)
 
     if (signedIn) {
       return (
@@ -52,12 +51,6 @@ class SideBar extends Component {
                     </li>
                   )}
                 </ul>
-              </li>
-              <li>
-                <Link to='#' onClick={e => { e.preventDefault(); logout() }}>
-                  <i className='material-icons'>subdirectory_arrow_right</i>
-                  <p>Thoát</p>
-                </Link>
               </li>
             </ul>
           </div>

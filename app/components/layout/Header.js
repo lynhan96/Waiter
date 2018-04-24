@@ -45,12 +45,6 @@ const Header = (props) => {
                 </ul>
               </li>
               <li>
-                <Link to='profile'>
-                  <i className='material-icons'>person</i>
-                  <p className='hidden-lg hidden-md'>Trang cá nhân</p>
-                </Link>
-              </li>
-              <li>
                 <Link to='dashboard' onClick={e => { e.preventDefault(); logout() }}>
                   <i className='material-icons'>subdirectory_arrow_right</i>
                   <p className='hidden-lg hidden-md'>Thoát</p>
