@@ -19,7 +19,7 @@ class OrderForm extends Component {
       R.map(R.prop('name'))
     )(tables)
 
-    const typeSelectData = { type: {value: ['addOrder', 'newOrder'], view: ['Thêm món ăn', 'Tạo mới ']} }
+    const typeSelectData = { type: {value: ['newOrder', 'addOrder'], view: ['Tạo mới', 'Thêm món ăn']} }
     const tableSelectData = { tableId: {value: tableIds, view: tableNames} }
 
     return (
