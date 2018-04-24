@@ -1,13 +1,7 @@
-import request from 'request-promise'
 import { database } from 'database/database'
-import { SubmissionError } from 'redux-form'
-import R from 'ramda'
 
 import { getAdminData, getOrderingState } from 'lib/Constant'
-import Navigator from 'lib/Navigator'
-import { showNotification } from './showNotification'
-import { makeRequestOptions } from '../requestHeader'
-import { sortObjectsByKeyAtoZ, sortObjectsByKeyZtoA } from 'lib/objects'
+import { sortObjectsByKeyAtoZ } from 'lib/objects'
 
 export const FETCH_ORDERING_BEGIN = 'FETCH_ORDERING_BEGIN'
 export const FETCH_ORDERING_SUCCESS = 'FETCH_ORDERING_SUCCESS'

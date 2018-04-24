@@ -25,16 +25,6 @@ export const fetchTablesSuccess = items => ({
   items: items
 })
 
-export const deleteTable = (id) => (dispatch) => {
-  const ref = database.ref(getAdminData().vid + '/tables').child(id)
-  ref.remove()
-}
-
-export const updateCoordinates = (data, id) => (dispatch) => {
-  const ref = database.ref(getAdminData().vid + '/tables').child(id)
-  ref.set(data)
-}
-
 const updateTableInfo = (params, dispatch) => {
   let item = params.item
   item.name = params.tableName

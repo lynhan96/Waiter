@@ -1,10 +1,17 @@
 import { SubmissionError } from 'redux-form'
 import request from 'request-promise'
+import R from 'ramda'
+import * as firebase from 'firebase'
+import moment from 'moment'
 
+import { updateSelectedFood } from 'ducks/selectedFood'
+import { makeTotalPrice } from 'lib/objects'
 import { makeRequestOptions } from '../requestHeader'
 import { adminHasSignedIn } from 'ducks/admin'
 import { showNotification } from './showNotification'
 import Navigator from 'lib/Navigator'
+import { getSelectedState, getFoodState, getAdminData } from 'lib/Constant'
+
 // Redux-form requires a promise for async submission
 // so we return a promise
 export const submitLogin =
@@ -73,7 +80,48 @@ export const submitForgotPassword =
     })
   }
 
+const getOrderItems = (selectItems, items) => R.pipe(
+  R.keys,
+  R.map(item => mergeQuantity(selectItems[item], items)),
+)(selectItems)
+
+const mergeQuantity = (selectItem, items) => {
+  const item = R.find(
+    R.propEq('id', parseInt(selectItem.id))
+  )(items)
+
+  if (!item) return {}
+  item['quantity'] = selectItem.quantity
+  item['status'] = 'Đang chờ xác nhận từ nhà bếp'
+  return item
+}
+
 export const submitOrder =
   (values, dispatch, props) => {
-    console.log(values)
+    const foods = getFoodState().items
+    const selectedFoods = getSelectedState().items
+    const employeeData = getAdminData()
+    const items = getOrderItems(selectedFoods, foods)
+
+    const key = firebase.database().ref(employeeData.vid + '/orders/').push().key
+
+    const order = {
+      createdAt: moment.utc().format('YYYY-MM-DD hh-mm-ss'),
+      updatedAt: moment.utc().format('YYYY-MM-DD hh-mm-ss'),
+      transactionId: 'BILL.' + moment.utc().format('YYYY.MM.DD.hh.mm.ss'),
+      status: 'Đang gọi món',
+      totalPrice: makeTotalPrice(selectedFoods, items),
+      items: items,
+      userName: '',
+      userId: '',
+      employeeName: employeeData.name,
+      employeeToken: employeeData.token,
+      id: key
+    }
+
+    firebase.database().ref(employeeData.vid + '/orders/').child(key).set(order)
+
+    dispatch(updateSelectedFood({}))
+    showNotification('topCenter', 'success', 'Đặt món thành công!')
+    Navigator.push('foods')
   }

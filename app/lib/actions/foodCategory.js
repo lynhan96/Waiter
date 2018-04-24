@@ -1,10 +1,4 @@
 import request from 'request-promise'
-import async from 'async'
-import { SubmissionError } from 'redux-form'
-import * as firebase from 'firebase'
-import R from 'ramda'
-
-import Navigator from 'lib/Navigator'
 import { showNotification } from './showNotification'
 import { makeRequestOptions } from '../requestHeader'
 

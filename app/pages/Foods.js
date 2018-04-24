@@ -66,7 +66,11 @@ class Foods extends ReactQueryParams {
 
   render() {
     const { categories, foods, selectedFood, dispatch } = this.props
-    const params = this.queryParams
+    let params = this.queryParams
+    if (!params.index) {
+      params.index = 0
+    }
+
     const category = categories[parseInt(params.index)]
 
     return (
