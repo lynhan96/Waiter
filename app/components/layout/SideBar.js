@@ -18,6 +18,10 @@ class SideBar extends Component {
     Navigator.push('foods?index=' + index)
   }
 
+  isActive (value) {
+    return 'category ' + (window.location.href.includes('index=' + value) ? 'active' : '')
+  }
+
   render() {
     const { admin, foodCategory, dispatch } = this.props
     const { activeLink, signedIn } = admin
@@ -46,7 +50,7 @@ class SideBar extends Component {
                 </Link>
                 <ul className='sub-menu'>
                   {items.map((item, index) =>
-                    <li key={index}>
+                    <li className={this.isActive(index)} key={index}>
                       <Link to='#' onClick={e => { e.preventDefault(); this.changePage(index) }}>
                       <i className="material-icons">local_dining</i>
                       <span>{item.name}</span>
