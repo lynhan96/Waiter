@@ -8,7 +8,7 @@ const config = {
   devServer: {
     historyApiFallback: true,
     contentBase: './public',
-    port: 3000
+    port: 3030
   },
 
   node: {
@@ -53,7 +53,7 @@ const config = {
     }),
     new HtmlWebpackPlugin({
       template: 'assets/index.ejs',
-      baseUrl: 'http://localhost:3000/'
+      baseUrl: 'http://localhost:3030/'
     })
   ]
 }

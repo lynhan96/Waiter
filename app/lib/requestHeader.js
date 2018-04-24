@@ -14,7 +14,7 @@ export const makeHeader = _ => {
   }
 
   const headerInfo = Store.getState().admin.data
-  console.log(headerInfo)
+
   if (headerInfo && headerInfo !== null) {
     headers['Uid'] = headerInfo.uid
     headers['Token'] = headerInfo.token

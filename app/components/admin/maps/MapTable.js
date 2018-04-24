@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import R from 'ramda'
 import {Tabs, Tab} from 'material-ui/Tabs'
-import RaisedButton from 'material-ui/RaisedButton'
-import Navigator from 'lib/Navigator'
 import 'styles/website.less'
 
 import { isAdmin } from 'components/wrappers/isAdmin'
