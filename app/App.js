@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import SideBar from 'components/layout/SideBar'
+import Header from 'components/layout/Header'
 import { ToastContainer } from 'react-toastify'
 import Transition from 'react-transition-group/Transition'
 import ButtonOrder from 'components/ButtonOrder'
@@ -34,6 +35,7 @@ const App = (props) => {
       <div className='wrapper'>
         <SideBar/>
         <div className='main-panel'>
+          <Header />
           {children}
           {signedIn ? <ButtonOrder /> : <div/>}
           {signedIn ? <ButtonViewOrder /> : <div/>}
