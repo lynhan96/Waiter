@@ -1,0 +1,188 @@
+body {
+  padding: 0;
+  margin: 0;  
+  font-family: 'Roboto', sans-serif;
+}
+
+.textHover:hover {
+  color: #f5a300 !important;
+}
+
+.desktop-menu-bar li.open>a{
+  background: #f9ba3b !important;
+}
+
+.desktop-menu-bar li a {
+  font-weight: bold;
+  color: #ffffff !important;
+  text-transform: uppercase;
+}
+
+.desktop-menu-bar li a:hover {
+  background: #f9ba3b !important;
+}
+
+.desktop-menu-bar li ul{
+  background: #f5a300;
+  border: none;
+}
+
+.table-container{height: 80vh;border:2px solid black}
+.table-container>div{
+  display:inline-block;
+}
+
+.table-container > .table{
+  width: auto;
+  height: auto;
+  display: inline-block;
+}
+
+.table-container > .table .table-wrapper{
+  width:200px;
+  height:150px;
+  background:center no-repeat;
+  background-size:cover;
+  display:flex;
+  margin:20px 5px;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center
+}
+
+.table-container > .table .table-wrapper .table-status{
+  text-align:center;
+  background: green;
+  color: white;
+  padding: 2px 15px;
+  border-radius: 20px;
+}
+
+.table-container > .table .table-wrapper .table-name{
+  text-align:center;
+  background: rgb(0, 188, 212);
+  color: white;
+  margin-bottom: 10px;
+  padding: 2px 15px;
+  border-radius: 20px;
+}
+
+
+.resize-drag {
+  background-color: #29e;
+  color: white;
+  font-size: 20px;
+  font-family: sans-serif;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 30px 20px;
+
+  width: 120px;
+
+  /* This makes things *much* easier */
+  box-sizing: border-box;
+}
+
+.resize-container {
+  display: inline-block;
+  width: 100%;
+  height: 240px;
+}
+
+.react-draggable, .cursor {
+  cursor: move;
+}
+.no-cursor {
+  cursor: auto;
+}
+.cursor-y {
+  cursor: ns-resize;
+}
+.cursor-x {
+  cursor: ew-resize;
+}
+.react-draggable strong {
+  background: #ddd;
+  border: 1px solid #999;
+  border-radius: 3px;
+  display: block;
+  margin-bottom: 10px;
+  padding: 3px 5px;
+  text-align: center;
+}
+.box {
+  background: #fff;
+  border: 1px solid #999;
+  border-radius: 3px;
+  width: 180px;
+  height: 180px;
+  margin: 10px;
+  padding: 10px;
+  float: left;
+}
+
+.main-navigation ul{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background: #9c27b0;
+}
+
+.main-navigation ul li {
+  display: block;
+  position: relative;
+  float: left;
+  background: #9c27b0;
+}
+
+/* This hides the dropdowns */
+
+
+.main-navigation li ul { display: none; }
+
+.main-navigation ul li a {
+  display: block;
+  padding: 1em;
+  text-decoration: none;
+  white-space: nowrap;
+  color: #fff;
+  border-bottom: 1px solid white;
+}
+
+.main-navigation ul li a:hover { background: #9c27b0; }
+
+/* Display the dropdown */
+
+
+.main-navigation li:hover > ul {
+  display: block;
+  position: absolute;
+}
+
+.main-navigation li:hover li { float: none; }
+
+.main-navigation li:hover a { background: #9c27b0; }
+
+.main-navigation li:hover li a:hover { background: #9c27b0; }
+
+.main-navigation li ul li { border-top: 0; }
+
+/* Displays second level dropdowns to the right of the first level dropdown */
+
+
+.main-navigation ul ul ul {
+  left: 100%;
+  top: 0;
+}
+
+/* Simple clearfix */
+
+
+
+.main-navigation ul:before,
+.main-navigation ul:after {
+  content: " "; /* 1 */
+  display: table; /* 2 */
+}
+
+.main-navigation ul:after { clear: both; }
