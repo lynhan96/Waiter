@@ -12,7 +12,7 @@ export const submitLogin =
     const { email, password } = values
     let admin = null
 
-    const url = 'loginWaiter'
+    const url = 'waiterLogin'
     const params = { email: email, password: password }
 
     return request(makeRequestOptions(params, url)).then(body => {
@@ -24,6 +24,8 @@ export const submitLogin =
         showNotification('topCenter', 'error', 'Mật khẩu không hợp lệ!')
       } else if (body.code === 414) {
         showNotification('topCenter', 'error', 'Tài khoản không tồn tại!')
+      } else if (body.code === 419) {
+        showNotification('topCenter', 'error', 'Tài khoản không được cấp quyền để truy cập vào trang này!')
       } else {
         showNotification('topCenter', 'error', 'Lỗi hệ thống')
       }

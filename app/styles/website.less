@@ -121,68 +121,104 @@ body {
   float: left;
 }
 
-.main-navigation ul{
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  background: #9c27b0;
-}
+// menu
+.button-view-order {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #005238;
+  position: fixed;
+  top: 35%;
+  right: 10px;
+  cursor: pointer;
+  font-size: 20px;
+  padding-top: 35px;
+  font-weight: bold;
+  opacity: 0.9;
 
-.main-navigation ul li {
-  display: block;
-  position: relative;
-  float: left;
-  background: #9c27b0;
-}
-
-/* This hides the dropdowns */
-
-
-.main-navigation li ul { display: none; }
-
-.main-navigation ul li a {
-  display: block;
-  padding: 1em;
-  text-decoration: none;
-  white-space: nowrap;
+  -webkit-transition: box-shadow 0.2s ease;
+  -moz-transition: box-shadow 0.2s ease;
+  transition: box-shadow 0.2s ease;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 50%;
   color: #fff;
-  border-bottom: 1px solid white;
+  display: inline-block;
+  text-align: center;
 }
 
-.main-navigation ul li a:hover { background: #9c27b0; }
+.button-order {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #005238;
+  position: fixed;
+  top: 50%;
+  right: 10px;
+  cursor: pointer;
+  font-size: 20px;
+  padding-top: 35px;
+  font-weight: bold;
+  opacity: 0.9;
 
-/* Display the dropdown */
+  -webkit-transition: box-shadow 0.2s ease;
+  -moz-transition: box-shadow 0.2s ease;
+  transition: box-shadow 0.2s ease;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 50%;
+  color: #fff;
+  display: inline-block;
+  text-align: center;
+}
 
+.button-view-order:hover,
+.button-order:hover {
+  box-shadow: 0 0 0 7px #97824b;
+}
 
-.main-navigation li:hover > ul {
-  display: block;
+.button-view-order:hover:before,
+.button-order:hover:before {
+  -webkit-transform: scale(0.925);
+  -moz-transform: scale(0.925);
+  -ms-transform: scale(0.925);
+  -o-transform: scale(0.925);
+  transform: scale(0.925);
+  box-shadow: 0 0 0 1px #97824b;
+  opacity: .5;
+}
+
+.button-view-order:before,
+.button-order:before {
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+  border-radius: 50%;
+  bottom: 0;
+  box-shadow: 0 0 0 1px #97824b;
+  content: '';
+  left: 0;
   position: absolute;
-}
-
-.main-navigation li:hover li { float: none; }
-
-.main-navigation li:hover a { background: #9c27b0; }
-
-.main-navigation li:hover li a:hover { background: #9c27b0; }
-
-.main-navigation li ul li { border-top: 0; }
-
-/* Displays second level dropdowns to the right of the first level dropdown */
-
-
-.main-navigation ul ul ul {
-  left: 100%;
+  right: 0;
   top: 0;
 }
 
-/* Simple clearfix */
-
-
-
-.main-navigation ul:before,
-.main-navigation ul:after {
-  content: " "; /* 1 */
-  display: table; /* 2 */
+.number-order {
+  color: #005238;
 }
 
-.main-navigation ul:after { clear: both; }
+.number-order i {
+  margin: 0 15px;
+}
+
+.number-order span {
+  font-size: 25px;
+  font-weight: bold;
+  margin: 0 10px;
+}
+
+
+.food-item{
+  border-right: 2px dashed #ffd984;
+  border-bottom: 2px dashed #ffd984;
+}

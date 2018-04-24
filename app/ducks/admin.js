@@ -4,6 +4,9 @@ import 'react-confirm-alert/src/react-confirm-alert.css'
 import Navigator from 'lib/Navigator'
 import { fetchNotifications } from 'lib/actions/notification'
 import { fetchZones } from 'lib/actions/zone'
+import { fetchTables } from 'lib/actions/table'
+import { fetchFoodCategories } from 'lib/actions/foodCategory'
+import { fetchFoods } from 'lib/actions/food'
 
 const ADMIN_SIGNED_IN = 'admin/ADMIN_SIGNED_IN'
 const UPDATE_ACTIVE_LINK = 'admin/UPDATE_ACTIVE_LINK'
@@ -40,6 +43,9 @@ export const adminHasSignedIn = (admin) => (dispatch) => {
   dispatch({ type: ADMIN_SIGNED_IN, data: admin })
   dispatch(fetchNotifications())
   dispatch(fetchZones())
+  dispatch(fetchTables())
+  dispatch(fetchFoods())
+  dispatch(fetchFoodCategories())
 }
 
 export const updateActiveLink = (link) => (dispatch) => {
