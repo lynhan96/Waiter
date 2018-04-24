@@ -8,6 +8,7 @@ import Transition from 'react-transition-group/Transition'
 import ButtonOrder from 'components/ButtonOrder'
 import ButtonViewOrder from 'components/ButtonViewOrder'
 import '../public/lib/cms/css/animate.css'
+import '../public/lib/cms/css/hover.min.css'
 import '../public/lib/cms/css/custom.css'
 import 'styles/website.less'
 
