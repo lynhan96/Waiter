@@ -27,7 +27,7 @@ class ButtonOrder extends Component {
   render() {
     return (
       <div>
-        <div className='button-order' onClick={this.handleShow}>
+        <div className='button-order hvr-grow' onClick={this.handleShow}>
           Đặt món
         </div>
         <Modal show={this.state.show} onHide={this.handleClose}>

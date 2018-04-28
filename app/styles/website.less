@@ -106,15 +106,15 @@ body {
 }
 
 // menu
-.button-view-order {
+.button-view-order, .button-order {
     width: auto;
     height: 100px;
     background: linear-gradient(60deg, #66bb6a, #43a047);
     box-shadow: 0 12px 20px -10px rgba(76, 175, 80, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(76, 175, 80, 0.2);
     border-radius: 5px;
     position: fixed;
-    bottom: 10px;
-    right: 220px;
+    bottom: 20px;
+    right: 160px;
     cursor: pointer;
     font-size: 30px;
     text-align: center;
@@ -136,71 +136,11 @@ body {
 }
 
 .button-order {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background-color: #005238;
-    position: fixed;
-    top: 50%;
-    right: 10px;
-    cursor: pointer;
-    font-size: 20px;
-    padding-top: 35px;
-    font-weight: bold;
-    opacity: 0.9;
-    -webkit-transition: box-shadow 0.2s ease;
-    -moz-transition: box-shadow 0.2s ease;
-    transition: box-shadow 0.2s ease;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    border-radius: 50%;
-    color: #fff;
-    display: inline-block;
-    text-align: center;
-}
-
-.button-order:hover {
-    box-shadow: 0 0 0 2px #97824b;
-}
-
-.button-view-order:hover:before,
-.button-order:hover:before {
-    -webkit-transform: scale(0.925);
-    -moz-transform: scale(0.925);
-    -ms-transform: scale(0.925);
-    -o-transform: scale(0.925);
-    transform: scale(0.925);
-    box-shadow: 0 0 0 1px #97824b;
-    opacity: .5;
-}
-
-.button-order:before {
-    -webkit-transition: all 0.2s ease;
-    -moz-transition: all 0.2s ease;
-    transition: all 0.2s ease;
-    border-radius: 50%;
-    bottom: 0;
-    box-shadow: 0 0 0 1px #97824b;
-    content: '';
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-}
-
-.number-order {
-    color: #005238;
-    margin: 10px 0;
-}
-
-.number-order i {
-    margin: 0 15px;
-}
-
-.number-order span {
-    font-size: 25px;
-    font-weight: bold;
-    margin: 0 10px;
+    right: 15px;
+    background: linear-gradient(60deg,#26c6da,#00acc1);
+    box-shadow: 0 4px 20px 0 rgba(0,0,0,.14), 0 7px 10px -5px rgba(0,188,212,.4);
+    font-size: 22px;
+    width: 120px;
 }
 
 .food-item {
