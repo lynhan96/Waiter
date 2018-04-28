@@ -1,7 +1,8 @@
 import {
   FETCH_ORDERING_BEGIN,
   FETCH_ORDERING_SUCCESS,
-  FETCH_ORDERING_ERROR
+  FETCH_ORDERING_ERROR,
+  ORDERING_CHANGED
 } from '../lib/actions/ordering'
 
 import { ADMIN_SIGNED_OUT } from 'ducks/admin'
@@ -35,6 +36,18 @@ const reducer = (state = initialState, action) => {
         error: action.error,
         items: []
       }
+
+    case ORDERING_CHANGED: {
+      const { id } = action.item
+
+      return {
+        ...state,
+        items: {
+          ...state.items,
+          [id]: action.item
+        }
+      }
+    }
 
     case ADMIN_SIGNED_OUT:
       return {...initialState}

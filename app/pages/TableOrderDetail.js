@@ -6,8 +6,13 @@ import ReactQueryParams from 'react-query-params'
 import { isAdmin } from 'components/wrappers/isAdmin'
 
 import { priceToString } from 'lib/objects'
+import { fetchOrderings } from 'lib/actions/ordering'
 
 class TableOrderDetail extends ReactQueryParams {
+  componentDidMount() {
+    this.props.dispatch(fetchOrderings())
+  }
+
   render() {
     const { orderings, tables } = this.props
     let params = this.queryParams

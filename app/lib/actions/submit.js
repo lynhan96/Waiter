@@ -10,7 +10,7 @@ import { makeRequestOptions } from '../requestHeader'
 import { adminHasSignedIn } from 'ducks/admin'
 import { showNotification } from './showNotification'
 import Navigator from 'lib/Navigator'
-import { getSelectedState, getFoodState, getAdminData, getTableState } from 'lib/Constant'
+import { getSelectedState, getFoodState, getAdminData, getTableState, getOrderingState } from 'lib/Constant'
 
 // Redux-form requires a promise for async submission
 // so we return a promise
@@ -102,17 +102,35 @@ export const submitOrder =
     const selectedFoods = getSelectedState().items
     const employeeData = getAdminData()
     const tableData = getTableState().items
-    const items = getOrderItems(selectedFoods, foods)
+    const orderingData = getOrderingState().items
+    let items = getOrderItems(selectedFoods, foods)
+    let table = tableData[values.tableId]
+    let orderId = ''
+    let message = ''
+    let redirectUrl = ''
 
     if (items.length === 0) {
       return showNotification('topCenter', 'info', 'Vui lòng chọn món ăn!')
     }
 
-    if (tableData[values.tableId].status === 'Đã có khách' || tableData[values.tableId].status === 'Đã đặt') {
-      return showNotification('topCenter', 'error', 'Bàn đã có khách vui lòng chọn bàn khác!')
-    }
+    if (values.type === 'newOrder') {
+      if (tableData[values.tableId].status === 'Đã có khách' || tableData[values.tableId].status === 'Đã đặt') {
+        return showNotification('topCenter', 'error', 'Bàn đã có khách vui lòng chọn bàn khác!')
+      }
 
-    const orderId = firebase.database().ref(employeeData.vid + '/orders/').push().key
+      orderId = firebase.database().ref(employeeData.vid + '/orders/').push().key
+      message = 'Đặt món thành công!'
+    } else {
+      if (tableData[values.tableId].status !== 'Đã có khách' && tableData[values.tableId].status !== 'Đã đặt') {
+        return showNotification('topCenter', 'error', 'Vui lòng chọn bàn đã có khách để thêm món ăn vào bàn đó!')
+      }
+
+      orderId = table.lastOrderingId
+      const currentOrder = orderingData[orderId]
+      items = R.concat(currentOrder.items, items)
+
+      message = 'Thêm món ăn thành công!'
+    }
 
     const order = {
       createdAt: moment.utc().format('YYYY-MM-DD hh-mm-ss'),
@@ -131,7 +149,6 @@ export const submitOrder =
 
     firebase.database().ref(employeeData.vid + '/orders/').child(orderId).set(order)
 
-    let table = tableData[values.tableId]
     table.status = 'Đã có khách'
     table['lastOrderingId'] = orderId
 
@@ -139,6 +156,7 @@ export const submitOrder =
     ref.set(table)
 
     dispatch(updateSelectedFood({}))
-    showNotification('topCenter', 'success', 'Đặt món thành công!')
-    Navigator.push('map-tables')
+
+    showNotification('topCenter', 'success', message)
+    Navigator.push('tabe-order-detail?tableId=' + values.tableId)
   }
