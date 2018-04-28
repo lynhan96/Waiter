@@ -37,7 +37,7 @@ class TableOrderDetail extends ReactQueryParams {
           <div className='row'>
             <div className='card'>
               <div className='card-header' data-background-color='purple'>
-                <h3 className='title' style={style.header}>Giỏ Hàng</h3>
+                <h3 className='title' style={style.header}>{'Món ăn bàn ' + currentTable.name}</h3>
                 <h4 className='title' style={style.header}>{'(' + priceToString(ordering.totalPrice) + ')'}</h4>
               </div>
               <div className='card-content'style={{ width: '100%', float: 'left', padding: '40px 20px' }}>
