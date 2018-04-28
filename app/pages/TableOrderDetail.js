@@ -5,11 +5,11 @@ import R from 'ramda'
 import ReactQueryParams from 'react-query-params'
 import { isAdmin } from 'components/wrappers/isAdmin'
 
-import { makeTotalPrice, priceToString } from 'lib/objects'
+import { priceToString } from 'lib/objects'
 
 class TableOrderDetail extends ReactQueryParams {
   render() {
-    const { orderings, tables, dispatch } = this.props
+    const { orderings, tables } = this.props
     let params = this.queryParams
     const currentTable = tables[params.tableId]
 

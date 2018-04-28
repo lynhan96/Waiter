@@ -28,3 +28,9 @@ export const getPrice = (selectItem, items) => {
 }
 
 export const priceToString = price => price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' VNĐ'
+
+export const searchProduct = (keyword, items) => R.pipe(
+  R.filter(item => checkKeyword(keyword, item))
+)(items)
+
+export const checkKeyword = (keyword, item) => item.name.toLowerCase().includes(keyword.toLowerCase())
