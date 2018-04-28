@@ -10,7 +10,7 @@ import { makeRequestOptions } from '../requestHeader'
 import { adminHasSignedIn } from 'ducks/admin'
 import { showNotification } from './showNotification'
 import Navigator from 'lib/Navigator'
-import { getSelectedState, getFoodState, getAdminData } from 'lib/Constant'
+import { getSelectedState, getFoodState, getAdminData, getTableState } from 'lib/Constant'
 
 // Redux-form requires a promise for async submission
 // so we return a promise
@@ -101,9 +101,18 @@ export const submitOrder =
     const foods = getFoodState().items
     const selectedFoods = getSelectedState().items
     const employeeData = getAdminData()
+    const tableData = getTableState().items
     const items = getOrderItems(selectedFoods, foods)
 
-    const key = firebase.database().ref(employeeData.vid + '/orders/').push().key
+    if (items.length === 0) {
+      return showNotification('topCenter', 'info', 'Vui lòng chọn món ăn!')
+    }
+
+    if (tableData[values.tableId].status === 'Đã có khách' || tableData[values.tableId].status === 'Đã đặt') {
+      return showNotification('topCenter', 'error', 'Bàn đã có khách vui lòng chọn bàn khác!')
+    }
+
+    const orderId = firebase.database().ref(employeeData.vid + '/orders/').push().key
 
     const order = {
       createdAt: moment.utc().format('YYYY-MM-DD hh-mm-ss'),
@@ -114,14 +123,22 @@ export const submitOrder =
       items: items,
       userName: '',
       userId: '',
+      tableId: values.tableId,
       employeeName: employeeData.name,
       employeeToken: employeeData.token,
-      id: key
+      id: orderId
     }
 
-    firebase.database().ref(employeeData.vid + '/orders/').child(key).set(order)
+    firebase.database().ref(employeeData.vid + '/orders/').child(orderId).set(order)
+
+    let table = tableData[values.tableId]
+    table.status = 'Đã có khách'
+    table['lastOrderingId'] = orderId
+
+    const ref = firebase.database().ref(employeeData.vid + '/tables').child(values.tableId)
+    ref.set(table)
 
     dispatch(updateSelectedFood({}))
     showNotification('topCenter', 'success', 'Đặt món thành công!')
-    Navigator.push('foods')
+    Navigator.push('map-tables')
   }

@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
-import { dispatchLogout } from 'ducks/admin'
 import Navigator from 'lib/Navigator'
 import { fetchFoodCategories } from 'lib/actions/foodCategory'
 import { fetchFoods } from 'lib/actions/food'
@@ -10,6 +9,12 @@ class SideBar extends Component {
   constructor (props) {
     super(props)
     this.changePage = this.changePage.bind(this)
+    this.reloadMenu = this.reloadMenu.bind(this)
+  }
+
+  reloadMenu() {
+    this.props.dispatch(fetchFoods())
+    this.props.dispatch(fetchFoodCategories())
   }
 
   changePage(index) {
@@ -23,7 +28,7 @@ class SideBar extends Component {
   }
 
   render() {
-    const { admin, foodCategory, dispatch } = this.props
+    const { admin, foodCategory } = this.props
     const { activeLink, signedIn } = admin
     const { items } = foodCategory
 
@@ -44,7 +49,7 @@ class SideBar extends Component {
                 </Link>
               </li>
               <li className={activeLink === 'order-food' ? 'active' : ''}>
-                <Link to='order-food'>
+                <Link to='#' onClick={e => { e.preventDefault(); this.reloadMenu() }}>
                   <i className="material-icons">contact_mail</i>
                   <p>Thực đơn</p>
                 </Link>

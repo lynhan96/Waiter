@@ -14,6 +14,7 @@ import MapTable from 'components/admin/maps/MapTable'
 
 import Foods from 'pages/Foods'
 import FoodOrders from 'pages/FoodOrders'
+import TableOrderDetail from 'pages/TableOrderDetail'
 
 ReactDOM.render((
   <Provider store={Store}>
@@ -25,6 +26,7 @@ ReactDOM.render((
         <Route path='dashboard' component={Dashboard} />
         <Route path='foods' component={Foods} />
         <Route path='food-orders' component={FoodOrders} />
+        <Route path='tabe-order-detail' component={TableOrderDetail} />
 
         <Route path='map-tables' component={MapTable} />
       </Route>

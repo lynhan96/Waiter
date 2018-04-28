@@ -7,6 +7,7 @@ import { fetchZones } from 'lib/actions/zone'
 import { fetchTables } from 'lib/actions/table'
 import { fetchFoodCategories } from 'lib/actions/foodCategory'
 import { fetchFoods } from 'lib/actions/food'
+import { fetchOrderings } from 'lib/actions/ordering'
 
 const ADMIN_SIGNED_IN = 'admin/ADMIN_SIGNED_IN'
 const UPDATE_ACTIVE_LINK = 'admin/UPDATE_ACTIVE_LINK'
@@ -45,6 +46,7 @@ export const adminHasSignedIn = (admin) => (dispatch) => {
   dispatch(fetchZones())
   dispatch(fetchTables())
   dispatch(fetchFoods())
+  dispatch(fetchOrderings())
   dispatch(fetchFoodCategories())
 }
 
