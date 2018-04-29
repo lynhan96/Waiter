@@ -15,6 +15,7 @@ class FoodOrders extends ReactQueryParams {
 
     this.increaseFood = this.increaseFood.bind(this)
     this.decreaseFood = this.decreaseFood.bind(this)
+    this.removeFood = this.removeFood.bind(this)
   }
 
   componentDidMount() {
@@ -60,6 +61,13 @@ class FoodOrders extends ReactQueryParams {
     this.props.dispatch(updateSelectedFood(newItem))
   }
 
+  removeFood(foodId, dispatch) {
+    let { selectedFood } = this.props
+    const newItem = R.dissoc(foodId, selectedFood)
+
+    this.props.dispatch(updateSelectedFood(newItem))
+  }
+
   render() {
     const { foods, selectedFood, dispatch } = this.props
     const foodIds = Object.keys(selectedFood)
@@ -94,6 +102,9 @@ class FoodOrders extends ReactQueryParams {
                           <Link className='fa fa-2x fa-minus-circle' style={style.selectButton} onClick={e => { e.preventDefault(); this.decreaseFood(item.id, dispatch) }}/>
                           <span style={style.quantity}>{selectedFood && selectedFood[item.id.toString()] ? selectedFood[item.id.toString()].quantity : 0 }</span>
                           <Link className='fa fa-2x fa-plus-circle' style={style.selectButton} onClick={e => { e.preventDefault(); this.increaseFood(item.id, dispatch) }}/>
+                        </div>
+                        <div className='item-entry' style={{width: '100%', margin: '20px 0', textAlign: 'center'}}>
+                          <Link to='#' style={style.deleteFood} onClick={e => { e.preventDefault(); this.removeFood(item.id, dispatch) }}>Hủy món</Link>
                         </div>
                       </article>
                     </div>
@@ -136,5 +147,15 @@ const style = {
   },
   selectButton: {
     cursor: 'pointer'
+  },
+  deleteFood: {
+    textAlign: 'center',
+    fontSize: '17px',
+    backgroundColor: 'red',
+    color: 'white',
+    padding: '8px 15px',
+    borderRadius: '20px',
+    margin: '8px 0',
+    fontWeight: 'bold'
   }
 }
