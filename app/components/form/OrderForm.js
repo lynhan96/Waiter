@@ -38,7 +38,7 @@ class OrderForm extends Component {
     return (
       <form onSubmit={handleSubmit} style={{ marginTop: '20px' }}>
         <Tabs onChange={this.selectType}>
-          <Tab label='Tạo mới order' value='newOrder'>
+          <Tab label='Tạo mới order' value='newOrder' style={styles.tabHeader}>
             <div style={styles.wrapper}>
               {tableIds.map((key, index) => {
                 const item = tables[key]
@@ -61,7 +61,7 @@ class OrderForm extends Component {
               })}
             </div>
           </Tab>
-          <Tab label='Thêm món ăn cho bàn đã order' value='addOrder'>
+          <Tab label='Thêm món ăn cho bàn đã order' value='addOrder' style={styles.tabHeader}>
             <div style={styles.wrapper}>
               {tableIds.map((key, index) => {
                 const item = tables[key]
@@ -115,6 +115,11 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps)(OrderForm)
 
 const styles = {
+  tabHeader: {
+    textTransform: 'capitalize',
+    fontWeight: 'bold',
+    fontSize: '17px'
+  },
   wrapper: {
     marginTop: '20px'
   },
