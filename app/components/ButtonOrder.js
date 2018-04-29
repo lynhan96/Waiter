@@ -30,9 +30,14 @@ class ButtonOrder extends Component {
         <div className='button-order hvr-grow' onClick={this.handleShow}>
           Đặt món
         </div>
-        <Modal show={this.state.show} onHide={this.handleClose}>
+        <Modal
+          show={this.state.show}
+          onHide={this.handleClose}
+          bsSize='large'
+          aria-labelledby='contained-modal-title-lg'
+        >
           <Modal.Body>
-            <h2 style={{textAlign: 'center'}}>Đặt món</h2>
+            <h2 style={{textAlign: 'center', margin: '0'}}>Đặt món</h2>
             <DecoratedOrderForm />
           </Modal.Body>
           <Modal.Footer>
