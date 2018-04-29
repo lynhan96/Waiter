@@ -3,6 +3,8 @@ import { Modal } from 'react-bootstrap'
 import { reduxForm } from 'redux-form'
 import OrderForm from 'components/form/OrderForm'
 import { submitOrder } from 'lib/actions/submit'
+import { connect } from 'react-redux'
+import { changeOrderModal } from 'ducks/modal'
 
 class ButtonOrder extends Component {
   constructor(props, context) {
@@ -10,18 +12,14 @@ class ButtonOrder extends Component {
 
     this.handleShow = this.handleShow.bind(this)
     this.handleClose = this.handleClose.bind(this)
-
-    this.state = {
-      show: false
-    }
   }
 
   handleClose() {
-    this.setState({ show: false })
+    this.props.dispatch(changeOrderModal(false))
   }
 
   handleShow() {
-    this.setState({ show: true })
+    this.props.dispatch(changeOrderModal(true))
   }
 
   render() {
@@ -31,7 +29,7 @@ class ButtonOrder extends Component {
           Đặt món
         </div>
         <Modal
-          show={this.state.show}
+          show={this.props.orderModal}
           onHide={this.handleClose}
           bsSize='large'
           aria-labelledby='contained-modal-title-lg'
@@ -53,4 +51,8 @@ const DecoratedOrderForm = reduxForm({
   onSubmit: submitOrder
 })(OrderForm)
 
-export default ButtonOrder
+const mapStateToProps = state => ({
+  orderModal: state.modal.orderModal
+})
+
+export default connect(mapStateToProps)(ButtonOrder)

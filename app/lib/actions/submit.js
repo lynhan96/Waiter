@@ -11,6 +11,8 @@ import { showNotification } from './showNotification'
 import Navigator from 'lib/Navigator'
 import { getSelectedState, getFoodState, getAdminData, getTableState, getOrderingState } from 'lib/Constant'
 import { fetchOrderings } from 'lib/actions/ordering'
+import { changeOrderModal } from 'ducks/modal'
+
 // Redux-form requires a promise for async submission
 // so we return a promise
 export const submitLogin =
@@ -163,6 +165,7 @@ export const submitOrder =
 
     dispatch(updateSelectedFood({}))
     dispatch(fetchOrderings())
+    dispatch(changeOrderModal(false))
 
     showNotification('topCenter', 'success', message)
 

@@ -39,7 +39,7 @@ class TableOrderDetail extends ReactQueryParams {
     if (orderings) {
       ordering = orderings[currentTable.lastOrderingId]
 
-      if (ordering.items) {
+      if (ordering && ordering.items) {
         items = ordering.items
       }
     }
@@ -51,7 +51,7 @@ class TableOrderDetail extends ReactQueryParams {
             <div className='card'>
               <div className='card-header' data-background-color='purple'>
                 <h3 className='title' style={style.header}>{'Món ăn bàn ' + currentTable.name}</h3>
-                <h4 className='title' style={style.header}>{ ordering !== null ? '(' + priceToString(ordering.totalPrice) + ')' : ''}</h4>
+                <h4 className='title' style={style.header}>{ ordering !== null && ordering ? '(' + priceToString(ordering.totalPrice) + ')' : ''}</h4>
               </div>
               <div className='card-content'style={{ width: '100%', float: 'left', padding: '40px 20px' }}>
                 {items.map((item, index) => {
