@@ -5,7 +5,6 @@ import * as firebase from 'firebase'
 import moment from 'moment'
 
 import { updateSelectedFood } from 'ducks/selectedFood'
-import { makeTotalPrice } from 'lib/objects'
 import { makeRequestOptions } from '../requestHeader'
 import { adminHasSignedIn } from 'ducks/admin'
 import { showNotification } from './showNotification'
@@ -107,7 +106,6 @@ export const submitOrder =
     let table = tableData[values.tableId]
     let orderId = ''
     let message = ''
-    let redirectUrl = ''
 
     if (items.length === 0) {
       return showNotification('topCenter', 'info', 'Vui lòng chọn món ăn!')
@@ -127,17 +125,25 @@ export const submitOrder =
 
       orderId = table.lastOrderingId
       const currentOrder = orderingData[orderId]
-      items = R.concat(currentOrder.items, items)
+      if (currentOrder.items) {
+        items = R.concat(currentOrder.items, items)
+      }
 
       message = 'Thêm món ăn thành công!'
     }
+
+    const totalPrice = R.pipe(
+      R.values,
+      R.map(item => item.currentPrice * item.quantity),
+      R.sum
+    )(items)
 
     const order = {
       createdAt: moment.utc().format('YYYY-MM-DD hh-mm-ss'),
       updatedAt: moment.utc().format('YYYY-MM-DD hh-mm-ss'),
       transactionId: 'BILL.' + moment.utc().format('YYYY.MM.DD.hh.mm.ss'),
       status: 'Đang gọi món',
-      totalPrice: makeTotalPrice(selectedFoods, items),
+      totalPrice: totalPrice,
       items: items,
       userName: '',
       userId: '',

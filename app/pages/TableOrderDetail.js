@@ -35,6 +35,11 @@ class TableOrderDetail extends ReactQueryParams {
     }
 
     const ordering = orderings[currentTable.lastOrderingId]
+    let items = []
+
+    if (ordering.items) {
+      items = ordering.items
+    }
 
     return (
       <div className='content'>
@@ -46,7 +51,7 @@ class TableOrderDetail extends ReactQueryParams {
                 <h4 className='title' style={style.header}>{'(' + priceToString(ordering.totalPrice) + ')'}</h4>
               </div>
               <div className='card-content'style={{ width: '100%', float: 'left', padding: '40px 20px' }}>
-                {ordering.items.map((item, index) => {
+                {items.map((item, index) => {
                   const image = R.values(item.imageUrl)
 
                   return (
