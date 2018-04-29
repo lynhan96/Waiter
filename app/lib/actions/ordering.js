@@ -24,7 +24,6 @@ export const fetchOrderings = params => {
   return dispatch => {
     dispatch(fetchOrderingsBegin())
     const ref = database.ref(getAdminData().vid + '/orders')
-
     ref.once('value')
       .then((snapshot) => {
         dispatch(fetchOrderingsSuccess(snapshot.val()))

@@ -10,7 +10,7 @@ import { adminHasSignedIn } from 'ducks/admin'
 import { showNotification } from './showNotification'
 import Navigator from 'lib/Navigator'
 import { getSelectedState, getFoodState, getAdminData, getTableState, getOrderingState } from 'lib/Constant'
-
+import { fetchOrderings } from 'lib/actions/ordering'
 // Redux-form requires a promise for async submission
 // so we return a promise
 export const submitLogin =
@@ -162,6 +162,7 @@ export const submitOrder =
     ref.set(table)
 
     dispatch(updateSelectedFood({}))
+    dispatch(fetchOrderings())
 
     showNotification('topCenter', 'success', message)
 
