@@ -25,7 +25,7 @@ export const submitLogin =
       if (body.code === 0) {
         admin = body.data
         dispatch(adminHasSignedIn(admin))
-        Navigator.push('dashboard')
+        Navigator.push('map-tables')
       } else if (body.code === 416) {
         showNotification('topCenter', 'error', 'Mật khẩu không hợp lệ!')
       } else if (body.code === 414) {
@@ -164,5 +164,6 @@ export const submitOrder =
     dispatch(updateSelectedFood({}))
 
     showNotification('topCenter', 'success', message)
+
     Navigator.push('tabe-order-detail?tableId=' + values.tableId)
   }

@@ -8,16 +8,31 @@ import CustomSelectField from 'components/form/element/CustomSelectField'
 
 class OrderForm extends Component {
   render() {
-    const { submitting, handleSubmit, tables } = this.props
+    const { orderForm, submitting, handleSubmit, tables } = this.props
+    let tableIds = []
+    let tableNames = []
 
-    const tableIds = R.pipe(
-      R.keys
-    )(tables)
+    if (orderForm) {
+      let formValues = orderForm.values
 
-    const tableNames = R.pipe(
-      R.values,
-      R.map(R.prop('name'))
-    )(tables)
+      if (formValues.type === 'newOrder') {
+        tableIds = R.pipe(
+          R.keys,
+          R.filter(item => tables[item].status === 'Còn trống')
+        )(tables)
+      }
+
+      if (formValues.type === 'addOrder') {
+        tableIds = R.pipe(
+          R.keys,
+          R.filter(item => tables[item].status === 'Đã có khách' || tables[item].status === 'Đã đặt bàn')
+        )(tables)
+      }
+
+      tableNames = R.pipe(
+        R.map(item => tables[item].name)
+      )(tableIds)
+    }
 
     const typeSelectData = { type: {value: ['newOrder', 'addOrder'], view: ['Tạo mới', 'Thêm món ăn']} }
     const tableSelectData = { tableId: {value: tableIds, view: tableNames} }
@@ -53,7 +68,8 @@ class OrderForm extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  tables: state.table.items
+  tables: state.table.items,
+  orderForm: state.form.order
 })
 
 export default connect(mapStateToProps)(OrderForm)
