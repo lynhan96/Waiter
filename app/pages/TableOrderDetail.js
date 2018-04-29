@@ -56,12 +56,19 @@ class TableOrderDetail extends ReactQueryParams {
               <div className='card-content'style={{ width: '100%', float: 'left', padding: '40px 20px' }}>
                 {items.map((item, index) => {
                   const image = R.values(item.imageUrl)
+                  let statusClass = 'button-confirm-food'
+
+                  if (item.status === 'Hết món') {
+                    statusClass = 'button-delete-food'
+                  } else if (item.status === 'Chế biến xong') {
+                    statusClass = 'button-done-food'
+                  }
 
                   return (
                     <div className='col-md-4 col-sm-4 food-item' key={index}>
                       <article className='menus-container wow fadeIn animated' data-wow-delay='0.1s'>
                         <div className='item-entry'>
-                          <p style={style.status}> {item.status}</p>
+                          <p className={statusClass} style={style.status}> {item.status}</p>
                         </div>
                         <div>
                           <img src={ image.length > 0 ? image[0] : '' } style={{ objectFit: 'contain', width: '100%', height: '200px' }}/>
