@@ -6,9 +6,19 @@ import ReactQueryParams from 'react-query-params'
 import { isAdmin } from 'components/wrappers/isAdmin'
 
 import { priceToString } from 'lib/objects'
-import { fetchOrderings } from 'lib/actions/ordering'
+import { fetchOrderings, removeOrderFood } from 'lib/actions/ordering'
 
 class TableOrderDetail extends ReactQueryParams {
+  constructor (props) {
+    super(props)
+
+    this.removeFood = this.removeFood.bind(this)
+  }
+
+  removeFood(orderingId, foodIndex) {
+    this.props.dispatch(removeOrderFood(orderingId, foodIndex))
+  }
+
   componentDidMount() {
     this.props.dispatch(fetchOrderings())
   }
@@ -78,7 +88,11 @@ class TableOrderDetail extends ReactQueryParams {
                           <p style={style.description}> {priceToString(item.currentPrice) + ' x ' + item.quantity}</p>
                         </div>
                         <div className='item-entry' style={{width: '100%', margin: '20px 0', textAlign: 'center'}}>
-                          <Link to='#' style={style.deleteFood}> Hủy món</Link>
+                          <Link
+                            to='#'
+                            style={style.deleteFood}
+                            onClick={e => { e.preventDefault(); this.removeFood(ordering.id, index) }}
+                          > Hủy món</Link>
                         </div>
                       </article>
                     </div>
