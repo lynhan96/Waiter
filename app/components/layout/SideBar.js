@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import Navigator from 'lib/Navigator'
 import { fetchFoodCategories } from 'lib/actions/foodCategory'
 import { fetchFoods } from 'lib/actions/food'
+import { dispatchLogout } from 'ducks/admin'
 
 class SideBar extends Component {
   constructor (props) {
@@ -28,9 +29,10 @@ class SideBar extends Component {
   }
 
   render() {
-    const { admin, foodCategory } = this.props
+    const { admin, foodCategory, dispatch } = this.props
     const { activeLink, signedIn } = admin
     const { items } = foodCategory
+    const logout = dispatchLogout(dispatch)
 
     if (signedIn) {
       return (
@@ -63,6 +65,12 @@ class SideBar extends Component {
                     </li>
                   )}
                 </ul>
+              </li>
+              <li>
+                <Link onClick={e => { e.preventDefault(); logout() }}>
+                  <i className='material-icons'>subdirectory_arrow_right</i>
+                  <p>Thoát</p>
+                </Link>
               </li>
             </ul>
           </div>

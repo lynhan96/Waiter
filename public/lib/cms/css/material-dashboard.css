@@ -6455,6 +6455,10 @@ footer .btn {
         padding-top: 15px;
         background-color: rgba(0, 0, 0, 0.45);
     }
+    /* my css */
+    .main-panel .content {
+        padding-top: 60px;
+    }
     body,
     html {
         position: relative;
@@ -6473,7 +6477,7 @@ footer .btn {
     .navbar .navbar-collapse.collapse,
     .navbar .navbar-collapse.collapse.in,
     .navbar .navbar-collapse.collapsing {
-        display: none !important;
+        /* display: none !important; */
     }
     .navbar-nav>li {
         float: none;
@@ -6674,7 +6678,7 @@ footer .btn {
     [class*="navbar-"] .navbar-nav .open .dropdown-menu>li>a:hover,
     [class*="navbar-"] .navbar-nav .open .dropdown-menu>li>a:focus,
     [class*="navbar-"] .navbar-nav .navbar-nav .open .dropdown-menu>li>a:active {
-        color: white;
+        /* color: white; */
     }
     [class*="navbar-"] .navbar-nav>li>a,
     [class*="navbar-"] .navbar-nav>li>a:hover,

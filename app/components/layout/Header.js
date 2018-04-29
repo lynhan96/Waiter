@@ -3,7 +3,6 @@ import R from 'ramda'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import Navigator from 'lib/Navigator'
-import { dispatchLogout } from 'ducks/admin'
 
 class Header extends Component {
   constructor (props) {
@@ -16,8 +15,7 @@ class Header extends Component {
   }
 
   render() {
-    const { signedIn, dispatch, notifications } = this.props
-    const logout = dispatchLogout(dispatch)
+    const { signedIn, notifications } = this.props
     let notificationData = []
 
     if (notifications != null) {
@@ -42,7 +40,6 @@ class Header extends Component {
                   <a href='#' className='dropdown-toggle' data-toggle='dropdown' aria-expanded="false">
                     <i className='material-icons'>notifications</i>
                     <span className='notification'>{notificationData.length}</span>
-                    <p className='hidden-lg hidden-md'>Notifications</p>
                   </a>
                   <ul className='dropdown-menu'>
                     {notificationData.map((value, index) => {
@@ -53,12 +50,6 @@ class Header extends Component {
                       )
                     })}
                   </ul>
-                </li>
-                <li>
-                  <Link to='dashboard' onClick={e => { e.preventDefault(); logout() }}>
-                    <i className='material-icons'>subdirectory_arrow_right</i>
-                    <p className='hidden-lg hidden-md'>Thoát</p>
-                  </Link>
                 </li>
               </ul>
               <div className="form-group" style={styles.search}>
