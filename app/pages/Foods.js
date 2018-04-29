@@ -96,11 +96,15 @@ class Foods extends ReactQueryParams {
                           <div className='item-entry'>
                             <p style={style.description}> {priceToString(item.currentPrice)}</p>
                           </div>
-                          <div className='text-center number-order'>
-                            <Link className='fa fa-2x fa-minus-circle' style={style.selectButton} onClick={e => { e.preventDefault(); this.decreaseFood(item.id, dispatch) }}/>
-                            <span style={style.quantity}>{selectedFood && selectedFood[item.id.toString()] ? selectedFood[item.id.toString()].quantity : 0 }</span>
-                            <Link className='fa fa-2x fa-plus-circle' style={style.selectButton} onClick={e => { e.preventDefault(); this.increaseFood(item.id, dispatch) }}/>
-                          </div>
+                          {
+                            item.status === 'Hết món' ?
+                            <p style={style.message}>(*) Hiện tại nhà hàng đã hết món ăn này</p> :
+                            <div className='text-center number-order'>
+                              <Link className='fa fa-2x fa-minus-circle' style={style.selectButton} onClick={e => { e.preventDefault(); this.decreaseFood(item.id, dispatch) }}/>
+                              <span style={style.quantity}>{selectedFood && selectedFood[item.id.toString()] ? selectedFood[item.id.toString()].quantity : 0 }</span>
+                              <Link className='fa fa-2x fa-plus-circle' style={style.selectButton} onClick={e => { e.preventDefault(); this.increaseFood(item.id, dispatch) }}/>
+                            </div>
+                          }
                         </article>
                       </div>
                     )
@@ -127,6 +131,11 @@ export default R.pipe(
 )(Foods)
 
 const style = {
+  message: {
+    fontSize: '17px',
+    fontWeight: 'bold',
+    textAlign: 'center'
+  },
   name: {
     textAlign: 'center',
     fontWeight: 'bold'
