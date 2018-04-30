@@ -98,6 +98,11 @@ class TableOrderDetail extends ReactQueryParams {
                               onClick={e => { e.preventDefault(); this.removeFood(ordering.id, index) }}
                             > Hủy món</Link>
                           }
+                          <Link
+                            to='#'
+                            style={style.deleteFood}
+                            onClick={e => { e.preventDefault(); this.removeFood(ordering.id, index) }}
+                          > Hủy món</Link>
                         </div>
                       </article>
                     </div>

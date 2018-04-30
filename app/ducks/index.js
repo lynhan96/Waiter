@@ -8,6 +8,7 @@ import table from 'ducks/table'
 import ordering from 'ducks/ordering'
 import selectedFood from 'ducks/selectedFood'
 import modal from 'ducks/modal'
+import webBrowserNotification from 'ducks/webBrowserNotification'
 
 export default {
   hydration,
@@ -19,5 +20,6 @@ export default {
   ordering,
   notification,
   modal,
+  webBrowserNotification,
   selectedFood
 }
