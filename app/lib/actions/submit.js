@@ -165,21 +165,20 @@ export const submitOrder =
 
     const notificationId = firebase.database().ref(getAdminData().vid + '/notifications/').push().key
 
-    if (values.type === 'newOrder') {
-      firebase.database().ref(getAdminData().vid + '/notifications/').child(notificationId).set({
-        id: notificationId,
-        message: table.name + ': Có một order mới. Vui lòng kiểm tra',
-        type: 'kitchen',
-        orderingId: orderId
-      })
-    } else {
-      firebase.database().ref(getAdminData().vid + '/notifications/').child(notificationId).set({
-        id: notificationId,
-        message: table.name + ': Vừa mới thêm' + R.keys(selectedFoods).length + 'món ăn. Vui lòng kiểm tra',
-        type: 'kitchen',
-        orderingId: orderId
-      })
+    let notificationMessage = table.name + ': Có một order mới. Vui lòng kiểm tra'
+
+    if (values.type !== 'newOrder') {
+      notificationMessage = table.name + ': Vừa mới thêm ' + R.keys(selectedFoods).length + ' món ăn. Vui lòng kiểm tra'
     }
+
+    firebase.database().ref(getAdminData().vid + '/notifications/').child(notificationId).set({
+      id: notificationId,
+      message: notificationMessage,
+      type: 'kitchen',
+      orderingId: orderId,
+      tableId: values.tableId,
+      read: 'no'
+    })
 
     dispatch(updateSelectedFood({}))
     dispatch(fetchOrderings())
