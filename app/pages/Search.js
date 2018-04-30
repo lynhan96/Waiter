@@ -10,6 +10,7 @@ import { fetchFoodCategories } from 'lib/actions/foodCategory'
 import { fetchFoods } from 'lib/actions/food'
 import { updateSelectedFood } from 'ducks/selectedFood'
 import { priceToString, searchProduct } from 'lib/objects'
+import { fetchNotifications } from 'lib/actions/notification'
 
 class Search extends ReactQueryParams {
   constructor (props) {
@@ -20,6 +21,7 @@ class Search extends ReactQueryParams {
   }
 
   componentDidMount() {
+    this.props.dispatch(fetchNotifications())
     this.props.dispatch(fetchFoods())
     this.props.dispatch(fetchFoodCategories())
     this.props.dispatch(updateActiveLink('foods'))
