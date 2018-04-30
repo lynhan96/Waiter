@@ -27,28 +27,23 @@ class WebBrowserNotification extends Component {
     })
   }
   handleNotSupported() {
-    console.log('Web Notification not Supported')
     this.setState({
       ignore: true
     })
   }
 
   handleNotificationOnClick(e, tag) {
-    console.log(e, 'Notification clicked tag:' + tag)
   }
 
   handleNotificationOnError(e, tag) {
-    console.log(e, 'Notification error tag:' + tag)
   }
 
   handleNotificationOnClose(e, tag) {
-    console.log(e, 'Notification closed tag:' + tag)
   }
 
   handleNotificationOnShow(e, tag) {
     this.playSound()
-    console.log(e, 'Notification shown tag:' + tag)
-    console.log('123123')
+
     this.props.dispatch(resetWebBrowserNotification())
   }
 
