@@ -177,6 +177,7 @@ export const submitOrder =
       type: 'kitchen',
       orderingId: orderId,
       tableId: values.tableId,
+      requiredDeleteFood: 'no',
       read: 'no'
     })
 

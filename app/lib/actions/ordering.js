@@ -1,6 +1,6 @@
 import { database } from 'database/database'
 import R from 'ramda'
-import { getAdminData, getOrderingState } from 'lib/Constant'
+import { getAdminData, getOrderingState, getTableState } from 'lib/Constant'
 import * as firebase from 'firebase'
 import { showNotification } from './showNotification'
 
@@ -43,10 +43,26 @@ export const removeOrderFood = (orderingId, itemIndex) => {
   return dispatch => {
     const employeeData = getAdminData()
     const orderingData = getOrderingState().items
+    const tableData = getTableState().items
     let currentOrder = orderingData[orderingId]
 
-    if (currentOrder.items[itemIndex].status !== 'Đang chờ xác nhận từ nhà bếp' && currentOrder.items[itemIndex].status !== 'Hết món') {
+    if (currentOrder.items[itemIndex].status !== 'Hết món') {
       showNotification('topRight', 'warning', 'Món ăn đang được chuẩn bị. Vui lòng chờ phản hồi từ nhà bếp')
+
+      const currentTable = tableData[currentOrder.tableId]
+      const notificationId = firebase.database().ref(getAdminData().vid + '/notifications/').push().key
+
+      firebase.database().ref(getAdminData().vid + '/notifications/').child(notificationId).set({
+        id: notificationId,
+        message: currentTable.name + ' yêu cầu được hủy món ăn ' + currentOrder.items[itemIndex].name,
+        type: 'kitchen',
+        orderingId: orderingId,
+        tableId: currentOrder.tableId,
+        requiredDeleteFood: 'yes',
+        foodIndex: itemIndex,
+        read: 'no'
+      })
+
       return null
     }
 

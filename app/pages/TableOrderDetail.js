@@ -90,11 +90,14 @@ class TableOrderDetail extends ReactQueryParams {
                           <p style={style.description}> {priceToString(item.currentPrice) + ' x ' + item.quantity}</p>
                         </div>
                         <div className='item-entry' style={{width: '100%', margin: '20px 0', textAlign: 'center'}}>
-                          <Link
-                            to='#'
-                            style={style.deleteFood}
-                            onClick={e => { e.preventDefault(); this.removeFood(ordering.id, index) }}
-                          > Hủy món</Link>
+                          {item.note ?
+                            <p style={style.message}>{'(*) ' + item.note}</p> :
+                            <Link
+                              to='#'
+                              style={style.deleteFood}
+                              onClick={e => { e.preventDefault(); this.removeFood(ordering.id, index) }}
+                            > Hủy món</Link>
+                          }
                         </div>
                       </article>
                     </div>
@@ -120,6 +123,11 @@ export default R.pipe(
 )(TableOrderDetail)
 
 const style = {
+  message: {
+    fontSize: '17px',
+    fontWeight: 'bold',
+    textAlign: 'center'
+  },
   name: {
     textAlign: 'center',
     fontWeight: 'bold'
