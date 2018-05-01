@@ -6,7 +6,7 @@ import ReactQueryParams from 'react-query-params'
 import { isAdmin } from 'components/wrappers/isAdmin'
 
 import { priceToString } from 'lib/objects'
-import { fetchOrderings, removeOrderFood } from 'lib/actions/ordering'
+import { fetchOrderings, removeOrderFood, sendRequest } from 'lib/actions/ordering'
 import { fetchNotifications } from 'lib/actions/notification'
 
 class TableOrderDetail extends ReactQueryParams {
@@ -14,6 +14,11 @@ class TableOrderDetail extends ReactQueryParams {
     super(props)
 
     this.removeFood = this.removeFood.bind(this)
+    this.sendRequiredToCashier = this.sendRequiredToCashier.bind(this)
+  }
+
+  sendRequiredToCashier(tableId, orderingId) {
+    this.props.dispatch(sendRequest(tableId, orderingId))
   }
 
   removeFood(orderingId, foodIndex) {
@@ -30,7 +35,7 @@ class TableOrderDetail extends ReactQueryParams {
     let params = this.queryParams
     const currentTable = tables[params.tableId]
 
-    if (!currentTable.lastOrderingId) {
+    if (!currentTable || !currentTable.lastOrderingId) {
       return (
         <div className='content'>
           <div className='container-fluid animated fadeIn'>
@@ -64,6 +69,15 @@ class TableOrderDetail extends ReactQueryParams {
               <div className='card-header' data-background-color='purple'>
                 <h3 className='title' style={style.header}>{'Món ăn bàn ' + currentTable.name}</h3>
                 <h4 className='title' style={style.header}>{ ordering !== null && ordering ? '(' + priceToString(ordering.totalPrice) + ')' : ''}</h4>
+                { ordering !== null && ordering ?
+                  <div style={{textAlign: 'center', marginTop: '20px'}}>
+                    <Link
+                      to='#'
+                      style={style.callCashier}
+                      onClick={e => { e.preventDefault(); this.sendRequiredToCashier(params.tableId, ordering.id) }}
+                    > Gửi yêu cầu thanh toán</Link>
+                  </div>
+                 : ''}
               </div>
               <div className='card-content'style={{ width: '100%', float: 'left', padding: '40px 20px' }}>
                 {items.map((item, index) => {
@@ -162,6 +176,16 @@ const style = {
     color: 'white',
     padding: '8px 15px',
     borderRadius: '20px',
+    margin: '8px 0',
+    fontWeight: 'bold'
+  },
+  callCashier: {
+    textAlign: 'center',
+    fontSize: '17px',
+    background: 'linear-gradient(60deg, #66bb6a, #43a047)',
+    color: 'white',
+    padding: '8px 15px',
+    borderRadius: '3px',
     margin: '8px 0',
     fontWeight: 'bold'
   }

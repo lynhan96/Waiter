@@ -141,8 +141,8 @@ export const submitOrder =
     )(items)
 
     const order = {
-      createdAt: moment.utc().format('YYYY-MM-DD hh-mm-ss'),
-      updatedAt: moment.utc().format('YYYY-MM-DD hh-mm-ss'),
+      createdAt: moment.utc().format('YYYY-MM-DD hh:mm:ss'),
+      updatedAt: moment.utc().format('YYYY-MM-DD hh:mm:ss'),
       transactionId: 'BILL.' + moment.utc().format('YYYY.MM.DD.hh.mm.ss'),
       status: 'Đang gọi món',
       totalPrice: totalPrice,
@@ -175,6 +175,18 @@ export const submitOrder =
       id: notificationId,
       message: notificationMessage,
       type: 'kitchen',
+      orderingId: orderId,
+      tableId: values.tableId,
+      requiredDeleteFood: 'no',
+      read: 'no'
+    })
+
+    const cashierNotificationId = firebase.database().ref(getAdminData().vid + '/notifications/').push().key
+
+    firebase.database().ref(getAdminData().vid + '/notifications/').child(cashierNotificationId).set({
+      id: cashierNotificationId,
+      message: table.name + ': Có một order mới.',
+      type: 'cashier',
       orderingId: orderId,
       tableId: values.tableId,
       requiredDeleteFood: 'no',

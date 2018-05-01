@@ -39,6 +39,28 @@ export const fetchOrderings = params => {
   }
 }
 
+export const sendRequest = (tableId, orderingId) => {
+  return dispatch => {
+    const tableData = getTableState().items
+    const currentTable = tableData[tableId]
+
+    const notificationId = firebase.database().ref(getAdminData().vid + '/notifications/').push().key
+
+    firebase.database().ref(getAdminData().vid + '/notifications/').child(notificationId).set({
+      id: notificationId,
+      message: currentTable.name + ': yêu cầu thanh toán',
+      type: 'cashier',
+      orderingId: orderingId,
+      tableId: tableId,
+      requiredDeleteFood: 'no',
+      foodIndex: '',
+      read: 'no'
+    })
+    showNotification('topRight', 'success', 'Gửi yêu cầu thanh toán thành công')
+    return null
+  }
+}
+
 export const removeOrderFood = (orderingId, itemIndex) => {
   return dispatch => {
     const employeeData = getAdminData()
