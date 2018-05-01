@@ -141,8 +141,8 @@ export const submitOrder =
     )(items)
 
     const order = {
-      createdAt: moment.utc().format('YYYY-MM-DD hh:mm:ss'),
-      updatedAt: moment.utc().format('YYYY-MM-DD hh:mm:ss'),
+      createdAt: moment.utc().add(7, 'hours').format('YYYY-MM-DD hh:mm:ss'),
+      updatedAt: moment.utc().add(7, 'hours').format('YYYY-MM-DD hh:mm:ss'),
       transactionId: 'BILL.' + moment.utc().format('YYYY.MM.DD.hh.mm.ss'),
       status: 'Đang gọi món',
       totalPrice: totalPrice,
