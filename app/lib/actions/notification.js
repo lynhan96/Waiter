@@ -1,7 +1,6 @@
 import { getAdminData, getNotificationState } from 'lib/Constant'
 import * as firebase from 'firebase'
 import { viewWebBrowserNotification } from 'ducks/webBrowserNotification'
-import R from 'ramda'
 export const FETCH_NOTIFICATION_SUCCESS = 'FETCH_NOTIFICATION_SUCCESS'
 export const NOTIFICATION_CHANGED = 'NOTIFICATION_CHANGED'
 
@@ -31,8 +30,8 @@ export const fetchNotifications = () => (dispatch) => {
         sound: 'sound/sound.mp3'
       }
 
-      const items = R.merge(getNotificationState().items)(result.val())
-      dispatch(fetchNotificationSuccess(items))
+      let items = getNotificationState().items
+      items[result.val().id] = result.val()
 
       dispatch(viewWebBrowserNotification(title, options))
     }
