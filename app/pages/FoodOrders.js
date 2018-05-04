@@ -8,7 +8,6 @@ import { isAdmin } from 'components/wrappers/isAdmin'
 import { updateActiveLink } from 'ducks/admin'
 import { updateSelectedFood } from 'ducks/selectedFood'
 import { makeTotalPrice, priceToString } from 'lib/objects'
-import { fetchNotifications } from 'lib/actions/notification'
 
 class FoodOrders extends ReactQueryParams {
   constructor (props) {
@@ -20,7 +19,6 @@ class FoodOrders extends ReactQueryParams {
   }
 
   componentDidMount() {
-    this.props.dispatch(fetchNotifications())
     this.props.dispatch(updateActiveLink('foods'))
   }
 

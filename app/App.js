@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import { connect } from 'react-redux'
 
 import SideBar from 'components/layout/SideBar'
@@ -15,6 +15,10 @@ import 'styles/website.less'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
+import { fetchNotifications } from 'lib/actions/notification'
+import { fetchTables } from 'lib/actions/table'
+import { fetchZones } from 'lib/actions/zone'
+
 const ZoomInAndOut = ({ children, position, ...props }) => (
   <Transition
     {...props}
@@ -29,24 +33,32 @@ const ZoomInAndOut = ({ children, position, ...props }) => (
   </Transition>
 )
 
-const App = (props) => {
-  const { children, signedIn } = props
+class App extends Component {
+  componentWillUpdate() {
+    this.props.dispatch(fetchNotifications())
+    this.props.dispatch(fetchTables())
+    this.props.dispatch(fetchZones())
+  }
 
-  return (
-     <MuiThemeProvider>
-      <div className='wrapper'>
-        <SideBar/>
-        <div className='main-panel'>
-          <Header />
-          {children}
-          {signedIn ? <ButtonOrder /> : <div/>}
-          {signedIn ? <ButtonViewOrder /> : <div/>}
-          {signedIn ? <WebBrowserNotification /> : <div/>}
-          <ToastContainer transition={ZoomInAndOut}/>
+  render() {
+    const { children, signedIn } = this.props
+
+    return (
+       <MuiThemeProvider>
+        <div className='wrapper'>
+          <SideBar/>
+          <div className='main-panel'>
+            <Header />
+            {children}
+            {signedIn ? <ButtonOrder /> : <div/>}
+            {signedIn ? <ButtonViewOrder /> : <div/>}
+            {signedIn ? <WebBrowserNotification /> : <div/>}
+            <ToastContainer transition={ZoomInAndOut}/>
+          </div>
         </div>
-      </div>
-    </MuiThemeProvider>
-  )
+      </MuiThemeProvider>
+    )
+  }
 }
 
 const mapStateToProps = (state) => state.admin
