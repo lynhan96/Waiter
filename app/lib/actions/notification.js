@@ -32,6 +32,7 @@ export const fetchNotifications = () => (dispatch) => {
 
       let items = getNotificationState().items
       items[result.val().id] = result.val()
+      dispatch(fetchNotificationSuccess(items))
 
       dispatch(viewWebBrowserNotification(title, options))
     }
