@@ -5,8 +5,6 @@ import SideBar from 'components/layout/SideBar'
 import Header from 'components/layout/Header'
 import { ToastContainer } from 'react-toastify'
 import Transition from 'react-transition-group/Transition'
-import ButtonOrder from 'components/ButtonOrder'
-import ButtonViewOrder from 'components/ButtonViewOrder'
 import WebBrowserNotification from 'components/WebBrowserNotification'
 import '../public/lib/cms/css/animate.css'
 import '../public/lib/cms/css/hover.min.css'
@@ -50,8 +48,6 @@ class App extends Component {
           <div className='main-panel'>
             <Header />
             {children}
-            {signedIn ? <ButtonOrder /> : <div/>}
-            {signedIn ? <ButtonViewOrder /> : <div/>}
             {signedIn ? <WebBrowserNotification /> : <div/>}
             <ToastContainer transition={ZoomInAndOut}/>
           </div>

@@ -98,7 +98,7 @@ const mergeQuantity = (selectItem, items) => {
 }
 
 export const submitOrder =
-  (values, dispatch, props) => {
+  (values, dispatch) => {
     const foods = getFoodState().items
     const selectedFoods = getSelectedState().items
     const employeeData = getAdminData()

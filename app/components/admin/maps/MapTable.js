@@ -6,7 +6,6 @@ import 'styles/website.less'
 
 import { isAdmin } from 'components/wrappers/isAdmin'
 import { updateActiveLink } from 'ducks/admin'
-import ContentLoading from 'components/ContentLoading'
 import MapElement from 'components/admin/maps/MapElement'
 
 class MapTable extends Component {
@@ -15,16 +14,7 @@ class MapTable extends Component {
   }
 
   render() {
-    const { error, zones, table, dispatch } = this.props
-
-    if (error) {
-      return (
-        <ContentLoading
-          error={error}
-          message='Quá trình tải dữ liệu xảy ra lỗi!'
-        />
-      )
-    }
+    const { zones, table, dispatch } = this.props
 
     return (
       <div className='content'>

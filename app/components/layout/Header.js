@@ -8,7 +8,6 @@ import { markReadMessage } from 'lib/actions/notification'
 class Header extends Component {
   constructor (props) {
     super(props)
-    this.search = this.search.bind(this)
     this.readMessage = this.readMessage.bind(this)
   }
 
@@ -70,9 +69,6 @@ class Header extends Component {
                   </ul>
                 </li>
               </ul>
-              <div className="form-group" style={styles.search}>
-                <input type="text" className="form-control" placeholder="Tìm kiếm món ăn" onChange={this.search}/>
-              </div>
             </div>
           </div>
         </nav>
@@ -89,10 +85,3 @@ const mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps)(Header)
-
-const styles = {
-  search: {
-    width: '70%',
-    marginTop: '4px'
-  }
-}

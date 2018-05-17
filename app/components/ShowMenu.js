@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
 import { Modal } from 'react-bootstrap'
-import { reduxForm } from 'redux-form'
-import OrderForm from 'components/form/OrderForm'
-import { submitOrder } from 'lib/actions/submit'
 import { connect } from 'react-redux'
 import { changeOrderModal } from 'ducks/modal'
+import Foods from 'pages/Foods'
 
-class ButtonOrder extends Component {
+class ShowMenu extends Component {
   constructor(props, context) {
     super(props, context)
 
@@ -25,18 +23,23 @@ class ButtonOrder extends Component {
   render() {
     return (
       <div>
-        <div className='button-order hvr-grow' onClick={this.handleShow}>
-          Đặt món
-        </div>
+        { this.props.orderModal ? '' :
+          <div className='button-order hvr-grow' onClick={this.handleShow}>
+            {this.props.type === 'newOrder' ? 'Chọn món' : 'Thêm món'}
+          </div>
+        }
         <Modal
+          id='menu'
           show={this.props.orderModal}
           onHide={this.handleClose}
           bsSize='large'
           aria-labelledby='contained-modal-title-lg'
         >
           <Modal.Body>
-            <h2 style={{textAlign: 'center', margin: '0'}}>Đặt món</h2>
-            <DecoratedOrderForm />
+            <Foods
+              tableId={this.props.tableId}
+              type={this.props.type}
+            />
           </Modal.Body>
           <Modal.Footer>
           </Modal.Footer>
@@ -46,13 +49,8 @@ class ButtonOrder extends Component {
   }
 }
 
-const DecoratedOrderForm = reduxForm({
-  form: 'order',
-  onSubmit: submitOrder
-})(OrderForm)
-
 const mapStateToProps = state => ({
   orderModal: state.modal.orderModal
 })
 
-export default connect(mapStateToProps)(ButtonOrder)
+export default connect(mapStateToProps)(ShowMenu)

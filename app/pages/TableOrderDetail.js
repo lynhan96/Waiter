@@ -3,10 +3,13 @@ import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import R from 'ramda'
 import ReactQueryParams from 'react-query-params'
-import { isAdmin } from 'components/wrappers/isAdmin'
 
+import { updateActiveLink } from 'ducks/admin'
+import { isAdmin } from 'components/wrappers/isAdmin'
 import { priceToString } from 'lib/objects'
 import { fetchOrderings, removeOrderFood, sendRequest } from 'lib/actions/ordering'
+import ShowMenu from 'components/ShowMenu'
+import ViewOrderPrice from 'components/ViewOrderPrice'
 
 class TableOrderDetail extends ReactQueryParams {
   constructor (props) {
@@ -26,10 +29,11 @@ class TableOrderDetail extends ReactQueryParams {
 
   componentDidMount() {
     this.props.dispatch(fetchOrderings())
+    this.props.dispatch(updateActiveLink('map-tables'))
   }
 
   render() {
-    const { orderings, tables } = this.props
+    const { orderings, tables, orderModal } = this.props
     let params = this.queryParams
     const currentTable = tables[params.tableId]
 
@@ -45,6 +49,10 @@ class TableOrderDetail extends ReactQueryParams {
               </div>
             </div>
           </div>
+          <ShowMenu
+            type='newOrder'
+            tableId={params.tableId}
+          />
         </div>
       )
     }
@@ -119,6 +127,15 @@ class TableOrderDetail extends ReactQueryParams {
             </div>
           </div>
         </div>
+        <ShowMenu
+          type='addOrder'
+          tableId={params.tableId}
+        />
+        { orderModal ? '' :
+          <ViewOrderPrice
+            orderingId={ordering.id}
+          />
+        }
       </div>
     )
   }
@@ -126,7 +143,8 @@ class TableOrderDetail extends ReactQueryParams {
 
 const mapStateToProps = state => ({
   orderings: state.ordering.items,
-  tables: state.table.items
+  tables: state.table.items,
+  orderModal: state.modal.orderModal
 })
 
 export default R.pipe(
