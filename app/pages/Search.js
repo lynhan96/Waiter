@@ -9,7 +9,7 @@ import { updateActiveLink } from 'ducks/admin'
 import { fetchFoodCategories } from 'lib/actions/foodCategory'
 import { fetchFoods } from 'lib/actions/food'
 import { updateSelectedFood } from 'ducks/selectedFood'
-import { priceToString, searchProduct } from 'lib/objects'
+import { priceToString, searchSearch } from 'lib/objects'
 
 class Search extends ReactQueryParams {
   constructor (props) {
@@ -71,7 +71,7 @@ class Search extends ReactQueryParams {
     let searchFoods = []
 
     if (params.keyword !== '') {
-      searchFoods = searchProduct(params.keyword, foods)
+      searchFoods = searchSearch(params.keyword, foods)
     }
 
     return (

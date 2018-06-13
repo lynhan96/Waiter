@@ -8,8 +8,8 @@ import { isAdmin } from 'components/wrappers/isAdmin'
 import { fetchFoodCategories } from 'lib/actions/foodCategory'
 import { fetchFoods } from 'lib/actions/food'
 import { updateSelectedFood } from 'ducks/selectedFood'
-import { priceToString } from 'lib/objects'
 import { submitOrder } from 'lib/actions/submit'
+import { priceToString, searchSearch } from 'lib/objects'
 
 class Foods extends Component {
   constructor (props) {
@@ -19,6 +19,10 @@ class Foods extends Component {
     this.decreaseFood = this.decreaseFood.bind(this)
     this.orderFood = this.orderFood.bind(this)
     this.search = this.search.bind(this)
+
+    this.state = {
+      searchValue: ''
+    }
   }
 
   componentDidMount() {
@@ -28,7 +32,7 @@ class Foods extends Component {
   }
 
   search(e) {
-    console.log(e.target.value)
+    this.setState({ searchValue: e.target.value })
   }
 
   orderFood(values, dispatch) {
@@ -78,6 +82,59 @@ class Foods extends Component {
     const { categories, foods, selectedFood, dispatch, type, tableId } = this.props
 
     const values = { type: type, tableId: tableId }
+
+    if (this.state.searchValue !== '') {
+      const searchFoods = searchSearch(this.state.searchValue, foods)
+
+      return (
+        <div className='content'>
+          <div className='container-fluid animated fadeIn'>
+            <div className="form-group" style={style.search}>
+                <input type="text" className="form-control" placeholder="Tìm kiếm món ăn" onChange={e => { e.preventDefault(); this.search(e) }}/>
+            </div>
+            <div className='row'>
+              <div style={{ width: '100%', textAlign: 'center', float: 'left', marginTop: '20px' }}>
+                <Link
+                  to='#'
+                  style={style.orderFood}
+                  onClick={e => { e.preventDefault(); this.orderFood(values, dispatch) }}
+                > Gọi món</Link>
+              </div>
+              <div className='card' style={{ height: '80vh', overflowY: 'scroll' }}>
+                <div className='card-content'style={{ width: '100%', float: 'left', padding: '40px 20px' }}>
+                  {searchFoods.map((item, index) => {
+                    const image = R.values(item.imageUrl)
+
+                    return (
+                      <div className='col-md-4 col-sm-4 food-item' key={index}>
+                        <article className='menus-container wow fadeIn animated' data-wow-delay='0.1s'>
+                          <div>
+                            <img src={ image.length > 0 ? image[0] : '' } style={{ objectFit: 'contain', width: '100%', height: '200px' }}/>
+                          </div>
+                          <h4 className='item-title' style={style.name}>{item.name}</h4>
+                          <div className='item-entry'>
+                            <p style={style.description}> {priceToString(item.currentPrice)}</p>
+                          </div>
+                          {
+                            item.status === 'Hết món' ?
+                            <p style={style.message}>(*) Hiện tại nhà hàng đã hết món ăn này</p> :
+                            <div className='text-center number-order'>
+                              <Link className='fa fa-2x fa-minus-circle' style={style.selectButton} onClick={e => { e.preventDefault(); this.decreaseFood(item.id, dispatch) }}/>
+                              <span style={style.quantity}>{selectedFood && selectedFood[item.id.toString()] ? selectedFood[item.id.toString()].quantity : 0 }</span>
+                              <Link className='fa fa-2x fa-plus-circle' style={style.selectButton} onClick={e => { e.preventDefault(); this.increaseFood(item.id, dispatch) }}/>
+                            </div>
+                          }
+                        </article>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    }
 
     return (
       <div className='content'>
