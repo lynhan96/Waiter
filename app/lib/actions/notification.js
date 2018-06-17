@@ -10,6 +10,10 @@ export const fetchNotificationSuccess = items => ({
 })
 
 export const fetchNotifications = () => (dispatch) => {
+  if (getAdminData() == null) {
+    return
+  }
+
   const ref = firebase.database().ref(getAdminData().vid + '/notifications/')
 
   ref.orderByChild('type').equalTo('waiter').on('value', (result) => {

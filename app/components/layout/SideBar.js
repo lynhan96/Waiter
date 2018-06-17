@@ -37,8 +37,8 @@ class SideBar extends Component {
       return (
         <div className='sidebar slde-bar-bg-image' data-color='purple'>
           <div className='logo'>
-            <Link to='dashboard' className='simple-text'>
-              BK Food
+            <Link to='dashboard' className='simple-text' style={{ textTransform: 'none', textAlign: 'center', fontFamily: 'Playfair Display, serif' }}>
+              BK Cookery
             </Link>
           </div>
           <div className='sidebar-wrapper'>
@@ -50,7 +50,7 @@ class SideBar extends Component {
                 </Link>
               </li>
               <li>
-                <Link onClick={e => { e.preventDefault(); logout() }}>
+                <Link to='#' onClick={e => { e.preventDefault(); logout() }}>
                   <i className='material-icons'>subdirectory_arrow_right</i>
                   <p>Thoát</p>
                 </Link>
