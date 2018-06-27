@@ -10,6 +10,8 @@ import { priceToString } from 'lib/objects'
 import { fetchOrderings, removeOrderFood, sendRequest } from 'lib/actions/ordering'
 import ShowMenu from 'components/ShowMenu'
 import ViewOrderPrice from 'components/ViewOrderPrice'
+import CancelFoodModal from 'components/CancelFoodModal'
+import { changeOrderModal } from 'ducks/modal'
 
 class TableOrderDetail extends ReactQueryParams {
   constructor (props) {
@@ -17,6 +19,17 @@ class TableOrderDetail extends ReactQueryParams {
 
     this.removeFood = this.removeFood.bind(this)
     this.sendRequiredToCashier = this.sendRequiredToCashier.bind(this)
+    this.openCancelModal = this.openCancelModal.bind(this)
+    this.state = {
+      foodIndex: 0,
+      foodQuantity: 1
+    }
+  }
+
+  openCancelModal(foodIndex, foodQuantity) {
+    console.log(foodIndex)
+    this.setState({ foodIndex: foodIndex, foodQuantity: foodQuantity })
+    this.props.dispatch(changeOrderModal(false, true))
   }
 
   sendRequiredToCashier(tableId, orderingId) {
@@ -115,7 +128,7 @@ class TableOrderDetail extends ReactQueryParams {
                             <Link
                               to='#'
                               style={style.deleteFood}
-                              onClick={e => { e.preventDefault(); this.removeFood(ordering.id, index) }}
+                              onClick={e => { e.preventDefault(); this.openCancelModal(index, item.quantity) }}
                             > Hủy món</Link>
                           }
                         </div>
@@ -127,6 +140,11 @@ class TableOrderDetail extends ReactQueryParams {
             </div>
           </div>
         </div>
+        <CancelFoodModal
+          foodIndex={this.state.foodIndex}
+          orderingId={ordering.id}
+          currentQuantity={this.state.foodQuantity}
+        />
         <ShowMenu
           type='addOrder'
           tableId={params.tableId}

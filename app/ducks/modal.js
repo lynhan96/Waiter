@@ -2,12 +2,13 @@ import { ADMIN_SIGNED_OUT } from 'ducks/admin'
 
 export const CHANGE_MODAL_STATUS = 'CHANGE_MODAL_STATUS'
 
-export const changeOrderModal = value => dispatch => {
-  dispatch({type: CHANGE_MODAL_STATUS, orderModal: value})
+export const changeOrderModal = (value, value1) => dispatch => {
+  dispatch({type: CHANGE_MODAL_STATUS, orderModal: value, cancelModal: value1})
 }
 
 const initialState = {
-  orderModal: false
+  orderModal: false,
+  cancelModal: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -15,7 +16,8 @@ const reducer = (state = initialState, action) => {
     case CHANGE_MODAL_STATUS:
       return {
         ...state,
-        orderModal: action.orderModal
+        orderModal: action.orderModal,
+        cancelModal: action.cancelModal
       }
 
     case ADMIN_SIGNED_OUT:

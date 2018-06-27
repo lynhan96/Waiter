@@ -13,11 +13,11 @@ class ShowMenu extends Component {
   }
 
   handleClose() {
-    this.props.dispatch(changeOrderModal(false))
+    this.props.dispatch(changeOrderModal(false, false))
   }
 
   handleShow() {
-    this.props.dispatch(changeOrderModal(true))
+    this.props.dispatch(changeOrderModal(true, true))
   }
 
   render() {

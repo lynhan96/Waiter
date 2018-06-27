@@ -3,6 +3,7 @@ import R from 'ramda'
 import { getAdminData, getOrderingState, getTableState } from 'lib/Constant'
 import * as firebase from 'firebase'
 import { showNotification } from './showNotification'
+import { changeOrderModal } from 'ducks/modal'
 
 export const FETCH_ORDERING_BEGIN = 'FETCH_ORDERING_BEGIN'
 export const FETCH_ORDERING_SUCCESS = 'FETCH_ORDERING_SUCCESS'
@@ -60,6 +61,40 @@ export const sendRequest = (tableId, orderingId) => {
     return null
   }
 }
+
+export const sendRemoveFood =
+  (values, dispatch, props) => {
+    const orderingData = getOrderingState().items
+    const tableData = getTableState().items
+    let foodIndex = values.foodIndex
+
+    if (!foodIndex) {
+      foodIndex = 0
+    }
+
+    let currentOrder = orderingData[values.orderingId]
+
+    if (currentOrder.items[foodIndex].status !== 'Hết món') {
+      const currentTable = tableData[currentOrder.tableId]
+      const notificationId = firebase.database().ref(getAdminData().vid + '/notifications/').push().key
+
+      firebase.database().ref(getAdminData().vid + '/notifications/').child(notificationId).set({
+        id: notificationId,
+        message: currentTable.name + ' yêu cầu được hủy món ăn ' + currentOrder.items[foodIndex].name + ', Số lượng: ' + values.quantity,
+        type: 'kitchen',
+        orderingId: values.orderingId,
+        tableId: currentOrder.tableId,
+        requiredDeleteFood: 'yes',
+        foodIndex: foodIndex,
+        quantity: values.quantity,
+        read: 'no'
+      })
+
+      dispatch(changeOrderModal(false, false))
+    }
+
+    showNotification('topCenter', 'success', 'Gửi yêu cầu thành công. Vui lòng chờ phản hồi từ nhà bếp')
+  }
 
 export const removeOrderFood = (orderingId, itemIndex) => {
   return dispatch => {
